@@ -31,7 +31,7 @@ jobs:
     - php: nightly
       env: OPTION="--ignore-platform-reqs"
            INSTALL="install"
-           PHPUNIT="bin/phpunit"
+           PHPUNIT="php7.2 bin/phpunit"
   allow_failures:
 #   PHP version dev version
     - php: nightly
@@ -52,13 +52,12 @@ install:
   - $PHPUNIT install
 
 script:
-  - '[[ "$CONTROL" == "YES" ]] || ./bin/phpunit'
+  - '[[ "$CONTROL" == "YES" ]] || $PHPUNIT'
   - '[[ "$CONTROL" == "" ]] || ./bin/phpunit -v --coverage-text'
   - '[[ "$CONTROL" == "" ]] || security-checker security:check'
   - '[[ "$CONTROL" == "" ]] || php-cs-fixer fix'
   - '[[ "$CONTROL" == "" ]] || twigcs templates -vv'
-  - '[[ "$CONTROL" == "" ]] || twigcs lib/Resources/views -vv'
-  - '[[ "$CONTROL" == "" ]] || bin/console lint:twig templates/ lib/Resources/views'
-  - '[[ "$CONTROL" == "" ]] || phpstan analyse lib src tests --level max'
-  - '[[ "$CONTROL" == "" ]] || bin/console lint:yaml config lib/Resources/config phpstan.neon.dist .travis.yml'
+  - '[[ "$CONTROL" == "" ]] || bin/console lint:twig templates/'
+  - '[[ "$CONTROL" == "" ]] || phpstan analyse src tests --level max'
+  - '[[ "$CONTROL" == "" ]] || bin/console lint:yaml config phpstan.neon.dist .travis.yml'
   - '[[ "$CONTROL" == "" ]] || composer -vv validate --strict'
