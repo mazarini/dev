@@ -48,9 +48,9 @@ before_install:
 install:
   - '[[ "$CONTROL" == "" ]] || composer global require friendsofphp/php-cs-fixer sensiolabs/security-checker friendsoftwig/twigcs phpstan/phpstan-symfony'
   - composer $INSTALL $OPTION
-  - '[[ "$option" == "" ]] || phpenv global 7.2'
+  - '[[ "$option" == "" ]] || export PHP=7.2'
   - ./bin/phpunit install
-  - '[[ "$option" == "" ]] || phpenv global nightly'
+  - '[[ "$option" == "" ]] || export PHP=nightly'
 
 script:
   - '[[ "$CONTROL" == "YES" ]] || ./bin/phpunit -v'
