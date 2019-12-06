@@ -20,9 +20,11 @@ env:
 jobs:
   fast_finish: true
   include:
-#   PHP version
+#   Controle
     - php: 7.2
       env: INSTALL="install"
+           CONTROL="YES"
+#   PHP version
     - php: 7.3
       env: INSTALL="install"
     - php: 7.4
@@ -30,11 +32,36 @@ jobs:
     - php: nightly
       env: OPTION="nightly"
            INSTALL="install"
+#   symfony version
+    - php: 7.2
+      env: symfony="4.4.*"
+    - php: 7.2
+      env: symfony="5.0.*"
+#   symfony dev version
+    - php: 7.2
+      env: symfony="4.4.*"
+           STABILITY="dev"
+    - php: 7.2
+      env: symfony="5.0.*"
+           STABILITY="dev"
+    - php: 7.2
+      env: symfony="5.1.*"
+           STABILITY="dev"
   allow_failures:
 #   PHP version dev version
     - php: nightly
       env: OPTION="nightly"
            INSTALL="install"
+#   symfony dev version
+    - php: 7.2
+      env: symfony="4.4.*"
+           STABILITY="dev"
+    - php: 7.2
+      env: symfony="5.0.*"
+           STABILITY="dev"
+    - php: 7.2
+      env: symfony="5.1.*"
+           STABILITY="dev"
 
 before_install:
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini

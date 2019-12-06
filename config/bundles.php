@@ -8,4 +8,7 @@ return [
     Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class => ['dev' => true, 'test' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true, 'test' => true],
+    Mazarini\PackageBundle\MazariniPackageBundle::class => ['dev' => true, 'test' => true],
+    Mazarini\ToolsBundle\MazariniToolsBundle::class => ['dev' => true, 'test' => true],
+    Mazarini\TestBundle\MazariniTestBundle::class => ['dev' => true, 'test' => true],
 ];
