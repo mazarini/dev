@@ -28,15 +28,13 @@ jobs:
     - php: 7.4
       env: INSTALL="install"
     - php: nightly
-      env: OPTION="--ignore-platform-reqs"
+      env: OPTION="nightly"
            INSTALL="install"
-           PHPUNIT="php7.2 bin/phpunit"
-  allow_failures:
+allow_failures:
 #   PHP version dev version
     - php: nightly
-      env: OPTION="--ignore-platform-reqs"
+      env: OPTION="nightly"
            INSTALL="install"
-           PHPUNIT="php7.2 bin/phpunit"
 
 before_install:
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
@@ -46,13 +44,11 @@ before_install:
   - '[[ "$STABILITY" == "" ]] || composer config minimum-stability $STABILITY'
 
 install:
+  - '[[ "$OPTION" == "" ]] || phpenv global 7.2 && php -v'
   - '[[ "$CONTROL" == "" ]] || composer global require friendsofphp/php-cs-fixer sensiolabs/security-checker friendsoftwig/twigcs phpstan/phpstan-symfony'
-  - composer $INSTALL $OPTION
-  - '[[ "$OPTION" == "" ]] || export PHP=7.2 && phpenv global $PHP'
-  - php -v
+  - composer $INSTALL
   - ./bin/phpunit install
-  - '[[ "$OPTION" == "" ]] || export PHP=nightly && phpenv global $PHP'
-  - php -v
+  - '[[ "$OPTION" == "" ]] || phpenv global $OPTION && php -v'
 script:
   - '[[ "$CONTROL" == "YES" ]] || ./bin/phpunit -v'
   - '[[ "$CONTROL" == "" ]] || ./bin/phpunit -v --coverage-text'
