@@ -48,10 +48,11 @@ before_install:
 install:
   - '[[ "$CONTROL" == "" ]] || composer global require friendsofphp/php-cs-fixer sensiolabs/security-checker friendsoftwig/twigcs phpstan/phpstan-symfony'
   - composer $INSTALL $OPTION
-  - '[[ "$OPTION" == "" ]] || export PHP=7.2'
+  - '[[ "$OPTION" == "" ]] || export PHP=7.2 && phpenv global $PHP'
+  - php -v
   - ./bin/phpunit install
-  - '[[ "$OPTION" == "" ]] || export PHP=nightly'
-
+  - '[[ "$OPTION" == "" ]] || export PHP=nightly && phpenv global $PHP'
+  - php -v
 script:
   - '[[ "$CONTROL" == "YES" ]] || ./bin/phpunit -v'
   - '[[ "$CONTROL" == "" ]] || ./bin/phpunit -v --coverage-text'
