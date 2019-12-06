@@ -12,7 +12,6 @@ env:
     - SYMFONY_PHPUNIT_DIR=./var/cache/phpunit
     - SYMFONY_DEPRECATIONS_HELPER=0
     - OPTION=
-    - PHPUNIT="bin/phpunit"
     - INSTALL="update"
     - SYNFONY=
     - STABILITY=
@@ -49,10 +48,12 @@ before_install:
 install:
   - '[[ "$CONTROL" == "" ]] || composer global require friendsofphp/php-cs-fixer sensiolabs/security-checker friendsoftwig/twigcs phpstan/phpstan-symfony'
   - composer $INSTALL $OPTION
-  - $PHPUNIT install
+  - '[[ "$option" == "" ]] || phpenv global 7.2'
+  - ./bin/phpunit install
+  - '[[ "$option" == "" ]] || phpenv global nightly'
 
 script:
-  - '[[ "$CONTROL" == "YES" ]] || $PHPUNIT'
+  - '[[ "$CONTROL" == "YES" ]] || ./bin/phpunit -v'
   - '[[ "$CONTROL" == "" ]] || ./bin/phpunit -v --coverage-text'
   - '[[ "$CONTROL" == "" ]] || security-checker security:check'
   - '[[ "$CONTROL" == "" ]] || php-cs-fixer fix'
