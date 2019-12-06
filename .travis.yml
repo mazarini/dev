@@ -30,7 +30,7 @@ jobs:
     - php: nightly
       env: OPTION="nightly"
            INSTALL="install"
-allow_failures:
+  allow_failures:
 #   PHP version dev version
     - php: nightly
       env: OPTION="nightly"
