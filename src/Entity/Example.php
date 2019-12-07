@@ -20,11 +20,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mazarini\ToolsBundle\Entity\EntityInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ExampleRepository")
  */
-class Example
+class Example implements EntityInterface
 {
     /**
      * @ORM\Id()

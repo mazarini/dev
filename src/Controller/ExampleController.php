@@ -22,7 +22,9 @@ namespace App\Controller;
 use App\Entity\Example;
 use App\Form\ExampleType;
 use App\Repository\ExampleRepository;
+use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,22 +49,7 @@ class ExampleController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $example = new Example();
-        $form = $this->createForm(ExampleType::class, $example);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($example);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('example_index');
-        }
-
-        return $this->render('example/new.html.twig', [
-            'example' => $example,
-            'form' => $form->createView(),
-        ]);
+        return $this->edit($request, new Example());
     }
 
     /**
@@ -80,16 +67,26 @@ class ExampleController extends AbstractController
      */
     public function edit(Request $request, Example $example): Response
     {
-        $form = $this->createForm(ExampleType::class, $example);
+        $form = $this->createEntityForm(ExampleType::class, $example);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            if ($example->isNew()) {
+                $entityManager->persist($example);
+            }
+            $entityManager->flush();
 
             return $this->redirectToRoute('example_index');
         }
 
-        return $this->render('example/edit.html.twig', [
+        if ($example->isNew()) {
+            $twig = 'example/new.html.twig';
+        } else {
+            $twig = 'example/edit.html.twig';
+        }
+
+        return $this->render($twig, [
             'example' => $example,
             'form' => $form->createView(),
         ]);
@@ -107,5 +104,19 @@ class ExampleController extends AbstractController
         }
 
         return $this->redirectToRoute('example_index');
+    }
+
+    /**
+     * createEntityForm.
+     *
+     * Creates and returns a Form instance from the type of the form.
+     *
+     * @param array<int,mixed> $options
+     *
+     * @return FormInterface<string,mixed>
+     */
+    protected function createEntityForm(string $type, EntityInterface $data = null, array $options = []): FormInterface
+    {
+        return $this->container->get('form.factory')->createNamed('Entity', $type, $data, $options);
     }
 }
