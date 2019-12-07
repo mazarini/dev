@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be1cd848c908de2df4e4739c80c1975f",
+    "content-hash": "dd93ab15d181c5b9dd13c687e2cf768e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1189,6 +1189,137 @@
                 "sql"
             ],
             "time": "2014-01-12T16:20:24+00:00"
+        },
+        {
+            "name": "mazarini/bootstrap-bundle",
+            "version": "v0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mazarini/bootstrap-bundle.git",
+                "reference": "3236b2b1a3bcecc18733200c9f7cc30df2795673"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mazarini/bootstrap-bundle/zipball/3236b2b1a3bcecc18733200c9f7cc30df2795673",
+                "reference": "3236b2b1a3bcecc18733200c9f7cc30df2795673",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-iconv": "*",
+                "ext-mbstring": "*",
+                "mazarini/tools-bundle": "^0.9",
+                "php": "^7.2|^8.0",
+                "symfony/flex": "^1.5",
+                "symfony/twig-bundle": "^4.3|^5.0|^5.1"
+            },
+            "conflict": {
+                "symfony/symfony": "*"
+            },
+            "require-dev": {
+                "mazarini/package": "^1.0",
+                "mazarini/test-bundle": "^0.9",
+                "symfony/debug-pack": "^1.0",
+                "symfony/maker-bundle": "^1.14",
+                "symfony/test-pack": "^1.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "symfony": {
+                    "allow-contrib": true,
+                    "require": "5.0.*"
+                },
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mazarini\\BootstrapBundle\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Mazarini",
+                    "email": "mazarini@protonmail.com"
+                }
+            ],
+            "description": "Set of template using bootstrap for twig",
+            "homepage": "https://github.com/mazarini/bootstrap-bundle",
+            "keywords": [
+                "symfony"
+            ],
+            "time": "2019-12-01T14:12:48+00:00"
+        },
+        {
+            "name": "mazarini/tools-bundle",
+            "version": "v0.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mazarini/tools-bundle.git",
+                "reference": "cd5c76c8bdcd64fc8404c56bd797275e4c5f7f13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mazarini/tools-bundle/zipball/cd5c76c8bdcd64fc8404c56bd797275e4c5f7f13",
+                "reference": "cd5c76c8bdcd64fc8404c56bd797275e4c5f7f13",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "^1.8",
+                "ext-ctype": "*",
+                "ext-iconv": "*",
+                "ext-mbstring": "*",
+                "php": "^7.2|^8.0",
+                "symfony/flex": "^1.5"
+            },
+            "conflict": {
+                "symfony/symfony": "*"
+            },
+            "require-dev": {
+                "mazarini/package": "^1.0",
+                "mazarini/test-bundle": "^0.9",
+                "symfony/debug-pack": "^1.0",
+                "symfony/maker-bundle": "^1.14",
+                "symfony/test-pack": "^1.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "symfony": {
+                    "allow-contrib": true,
+                    "require": "5.0.*"
+                },
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mazarini\\ToolsBundle\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Mazarini",
+                    "email": "mazarini@protonmail.com"
+                }
+            ],
+            "description": "Basic toolset for symfony applications.",
+            "homepage": "https://github.com/mazarini/tools-bundle",
+            "keywords": [
+                "bundle",
+                "symfony",
+                "toolset"
+            ],
+            "time": "2019-12-01T11:25:31+00:00"
         },
         {
             "name": "ocramius/package-versions",
@@ -4624,72 +4755,6 @@
                 "test"
             ],
             "time": "2019-12-05T14:01:47+00:00"
-        },
-        {
-            "name": "mazarini/tools-bundle",
-            "version": "v0.9.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mazarini/tools-bundle.git",
-                "reference": "cd5c76c8bdcd64fc8404c56bd797275e4c5f7f13"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mazarini/tools-bundle/zipball/cd5c76c8bdcd64fc8404c56bd797275e4c5f7f13",
-                "reference": "cd5c76c8bdcd64fc8404c56bd797275e4c5f7f13",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/annotations": "^1.8",
-                "ext-ctype": "*",
-                "ext-iconv": "*",
-                "ext-mbstring": "*",
-                "php": "^7.2|^8.0",
-                "symfony/flex": "^1.5"
-            },
-            "conflict": {
-                "symfony/symfony": "*"
-            },
-            "require-dev": {
-                "mazarini/package": "^1.0",
-                "mazarini/test-bundle": "^0.9",
-                "symfony/debug-pack": "^1.0",
-                "symfony/maker-bundle": "^1.14",
-                "symfony/test-pack": "^1.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "symfony": {
-                    "allow-contrib": true,
-                    "require": "5.0.*"
-                },
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Mazarini\\ToolsBundle\\": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Mazarini",
-                    "email": "mazarini@protonmail.com"
-                }
-            ],
-            "description": "Basic toolset for symfony applications.",
-            "homepage": "https://github.com/mazarini/tools-bundle",
-            "keywords": [
-                "bundle",
-                "symfony",
-                "toolset"
-            ],
-            "time": "2019-12-01T11:25:31+00:00"
         },
         {
             "name": "monolog/monolog",

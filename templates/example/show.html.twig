@@ -1,30 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Example{% endblock %}
+{% block title %}
+	Example
+{% endblock %}
 
-{% block body %}
-    <h1>Example</h1>
+{% block content %}
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ example.id }}</td>
+			</tr>
+			<tr>
+				<th>Col1</th>
+				<td>{{ example.col1 }}</td>
+			</tr>
+			<tr>
+				<th>Col2</th>
+				<td>{{ example.col2 }}</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ example.id }}</td>
-            </tr>
-            <tr>
-                <th>Col1</th>
-                <td>{{ example.col1 }}</td>
-            </tr>
-            <tr>
-                <th>Col2</th>
-                <td>{{ example.col2 }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<a href="{{ path('example_index') }}">back to list</a>
 
-    <a href="{{ path('example_index') }}">back to list</a>
+	<a href="{{ path('example_edit', {'id': example.id}) }}">edit</a>
 
-    <a href="{{ path('example_edit', {'id': example.id}) }}">edit</a>
-
-    {{ include('example/_delete_form.html.twig') }}
+	{{ include('example/_delete_form.html.twig') }}
 {% endblock %}

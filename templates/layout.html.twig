@@ -1,0 +1,28 @@
+{# templates/layout.html.twig #}
+
+{%- extends 'base.html.twig' -%}
+
+{% block title_head %}
+	Title
+{% endblock title_head %}
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		body {
+			padding-top: 2rem;
+		}
+	</style>
+{% endblock stylesheets %}
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-9">
+				<h1>
+					{% block title %}{% endblock title %}
+				</h1>
+				{% block content %}{% endblock content %}
+			</div>
+		</div>
+	</div>
+{% endblock body %}

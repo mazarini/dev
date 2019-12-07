@@ -1,13 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Edit Example{% endblock %}
+{% block title %}Edit Example
+{% endblock %}
 
-{% block body %}
-    <h1>Edit Example</h1>
+{% block content %}
+	{{ include('example/_form.html.twig', {'button_label': 'Update'}) }}
 
-    {{ include('example/_form.html.twig', {'button_label': 'Update'}) }}
+	<a href="{{ path('example_index') }}">back to list</a>
 
-    <a href="{{ path('example_index') }}">back to list</a>
-
-    {{ include('example/_delete_form.html.twig') }}
+	{{ include('example/_delete_form.html.twig') }}
 {% endblock %}

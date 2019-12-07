@@ -90,6 +90,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "mazarini/bootstrap-bundle": {
+        "version": "v0.9.0"
+    },
     "mazarini/package": {
         "version": "v1.1.0"
     },
