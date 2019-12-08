@@ -22,8 +22,4 @@
 		</tbody>
 	</table>
 	{% include 'example/_button.html.twig' %}
-	<br/>
-	<a class="btn btn-primary" href="{{ path('example_index') }}" role=" button">List</a>
-	<a class="btn btn-primary" href="{{ path('example_edit', {'id': data.entity.id}) }}" role=" button">edit</a>
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalId">Delete</button>
 {% endblock %}

@@ -20,9 +20,14 @@
 namespace App\Tool;
 
 use Mazarini\ToolsBundle\Entity\EntityInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Data
 {
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $router;
     /**
      * @var string
      */
@@ -48,8 +53,9 @@ class Data
      */
     private $links;
 
-    public function __construct(string $baseRoute, string $currentRoute, string $currentUrl)
+    public function __construct(UrlGeneratorInterface $router, string $baseRoute, string $currentRoute, string $currentUrl)
     {
+        $this->router = $router;
         $this->baseRoute = $baseRoute;
         $this->currentRoute = $currentRoute;
         $this->links = new Links($currentRoute, $currentUrl);
@@ -117,11 +123,18 @@ class Data
     }
 
     /**
-     * Get the value of Route.
+     * addLink.
+     *
+     * @param array<string,mixed> $parameters
      */
-    public function getRoute(string $name): string
+    public function addLink(string $name, string $route, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): self
     {
-        return $this->baseRoute.$name;
+        if ('_' === mb_substr($route, 0, 1)) {
+            $route = $this->baseRoute.$route;
+        }
+        $this->links->addLink(trim($name, '_'), $this->router->generate($route, $parameters, $referenceType));
+
+        return $this;
     }
 
     /**
@@ -129,6 +142,6 @@ class Data
      */
     public function getCurrentRoute(): string
     {
-        return $this->currentRoute;
+        return trim($this->currentRoute, '_');
     }
 }

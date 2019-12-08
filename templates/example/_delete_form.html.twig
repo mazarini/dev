@@ -4,7 +4,7 @@
 	<p>Are you sure you want to delete this item?</p>
 {% endblock %}
 {% block footer %}
-	<form method="post" action="{{ path('example_delete', {'id': data.entity.id}) }}">
+	<form method="post" action="{{ data.links['delete'].url }}">
 		<input type="hidden" name="_method" value="DELETE">
 		<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ data.entity.id) }}">
 		<button class="btn btn-primary" type="submit">Confirm</button>

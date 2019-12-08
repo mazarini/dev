@@ -4,7 +4,5 @@
 {% endblock %}
 
 {% block content %}
-	{{ include('example/_form.html.twig', {'button_label': 'Update'}) }}
-	<a class="btn btn-primary" href="{{ path('example_index') }}" role="button">List</a>
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalId">Delete</button>
+	{% include 'example/_form.html.twig' %}
 {% endblock %}

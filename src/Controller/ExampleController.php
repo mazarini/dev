@@ -30,6 +30,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/")
@@ -46,7 +47,7 @@ class ExampleController extends AbstractController
      */
     protected $parameters;
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack, UrlGeneratorInterface $router)
     {
         $currentUrl = '';
         $base = '';
@@ -56,15 +57,15 @@ class ExampleController extends AbstractController
             $currentUrl = $request->getPathInfo();
             $part = explode('_', $request->attributes->get('_route'));
             if (\count($part) > 1) {
-                $base = $part[array_key_first($part)].'_';
-                unset($part[array_key_first($part)]);
+                $base = $part[array_key_first($part)];
+                $part[array_key_first($part)] = '';
                 $current = implode('_', $part);
             } else {
                 $current = $request->attributes->get('_route');
             }
         }
 
-        $this->data = new Data($base, $current, $currentUrl);
+        $this->data = new Data($router, $base, $current, $currentUrl);
         $this->parameters['data'] = $this->data;
     }
 
@@ -167,7 +168,42 @@ class ExampleController extends AbstractController
         return $this->render($view, $parameters, $response);
     }
 
-    protected function initUrl(Data $data): void
+    protected function crudUrl(Data $data): self
     {
+        if ($data->isSetEntity()) {
+            $id = $data->getEntity()->getId();
+            $parameters = ['id' => $id];
+            foreach (['_edit', '_show', '_delete'] as $action) {
+                $data->addLink($action, $action, $parameters);
+            }
+        }
+        foreach (['_new', '_index'] as $action) {
+            $data->addLink($action, $action);
+        }
+
+        return $this;
+    }
+
+    protected function listUrl(Data $data): self
+    {
+        if ($data->isSetEntities()) {
+            foreach ($data->getEntities() as $entity) {
+                $id = $entity->getId();
+                $parameters = ['id' => $id];
+                foreach (['_edit', '_show', '_delete'] as $action) {
+                    $data->addLink($action.'-'.$id, $action, $parameters);
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    protected function initUrl(Data $data): self
+    {
+        $this->crudUrl($data);
+        $this->listUrl($data);
+
+        return $this;
     }
 }

@@ -20,8 +20,8 @@
 					<td>{{ entity.col1 }}</td>
 					<td>{{ entity.col2 }}</td>
 					<td>
-						<a class="btn btn-primary btn-sm" href="{{ path('example_show', {'id': entity.id}) }}" role=" button">show</a>
-						<a class="btn btn-primary btn-sm" href="{{ path('example_edit', {'id': entity.id}) }}" role=" button">edit</a>
+						<a class="btn btn-primary btn-sm" href="{{ data.links['show-' ~ entity.id].url }}" role=" button">Show</a>
+						<a class="btn btn-primary btn-sm" href="{{ data.links['edit-' ~ entity.id].url }}" role=" button">Edit</a>
 					</td>
 				</tr>
 			{% else %}
@@ -34,7 +34,7 @@
 			<tr>
 				<th colspan="3"></th>
 				<th>
-					<a class="btn btn-primary btn-sm" href="{{ path('example_new') }}" role=" button">New</a>
+					<a class="btn btn-primary btn-sm" href="{{ data.links['new'].url }}" role=" button">New</a>
 				</th>
 			</tr>
 		</thead>
