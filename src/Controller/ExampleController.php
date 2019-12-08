@@ -27,6 +27,7 @@ use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -36,16 +37,45 @@ use Symfony\Component\Routing\Annotation\Route;
 class ExampleController extends AbstractController
 {
     /**
+     * @var Data
+     */
+    protected $data;
+
+    /**
+     * @var array<string,mixed>
+     */
+    protected $parameters;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $currentUrl = '';
+        $base = '';
+        $current = '';
+        $request = $requestStack->getMasterRequest();
+        if (null !== $request) {
+            $currentUrl = $request->getPathInfo();
+            $part = explode('_', $request->attributes->get('_route'));
+            if (\count($part) > 1) {
+                $base = $part[array_key_first($part)].'_';
+                unset($part[array_key_first($part)]);
+                $current = implode('_', $part);
+            } else {
+                $current = $request->attributes->get('_route');
+            }
+        }
+
+        $this->data = new Data($base, $current, $currentUrl);
+        $this->parameters['data'] = $this->data;
+    }
+
+    /**
      * @Route("/", name="example_index", methods={"GET"})
      */
     public function index(ExampleRepository $exampleRepository): Response
     {
-        $data = new Data();
-        $data->setEntities($exampleRepository->getAll());
+        $this->data->setEntities($exampleRepository->getAll());
 
-        return $this->render('example/index.html.twig', [
-            'data' => $data,
-        ]);
+        return $this->dataRender('example/index.html.twig');
     }
 
     /**
@@ -61,12 +91,9 @@ class ExampleController extends AbstractController
      */
     public function show(Example $entity): Response
     {
-        $data = new Data();
-        $data->setEntity($entity);
+        $this->data->setEntity($entity);
 
-        return $this->render('example/show.html.twig', [
-            'data' => $data,
-        ]);
+        return $this->dataRender('example/show.html.twig', []);
     }
 
     /**
@@ -84,19 +111,17 @@ class ExampleController extends AbstractController
             }
             $entityManager->flush();
 
-            return $this->redirectToRoute('example_index');
+            return $this->redirectToRoute('example_show', ['id' => $entity->getId()]);
         }
 
-        $data = new Data();
-        $data->setEntity($entity);
+        $this->data->setEntity($entity);
         if ($entity->isNew()) {
             $twig = 'example/new.html.twig';
         } else {
             $twig = 'example/edit.html.twig';
         }
 
-        return $this->render($twig, [
-            'data' => $data,
+        return $this->dataRender($twig, [
             'form' => $form->createView(),
         ]);
     }
@@ -124,8 +149,25 @@ class ExampleController extends AbstractController
      *
      * @return FormInterface<string,mixed>
      */
-    protected function createEntityForm(string $type, EntityInterface $data = null, array $options = []): FormInterface
+    protected function createEntityForm(string $type, EntityInterface $entity = null, array $options = []): FormInterface
     {
-        return $this->container->get('form.factory')->createNamed('Entity', $type, $data, $options);
+        return $this->container->get('form.factory')->createNamed('Entity', $type, $entity, $options);
+    }
+
+    /**
+     * DataRender.
+     *
+     * @param array<string,mixed> $parameters
+     */
+    protected function dataRender(string $view, array $parameters = [], Response $response = null): Response
+    {
+        $parameters = array_merge($this->parameters, $parameters);
+        $this->initUrl($this->data);
+
+        return $this->render($view, $parameters, $response);
+    }
+
+    protected function initUrl(Data $data): void
+    {
     }
 }

@@ -38,9 +38,9 @@ class UrlControllerTest extends WebTestCase
     /**
      * @dataProvider getUrls
      */
-    public function testUrls(string $url): void
+    public function testUrls(string $url, string $method = 'GET'): void
     {
-        $this->client->request('GET', $url);
+        $this->client->request($method, $url);
 
         $this->assertSame(
             Response::HTTP_OK,

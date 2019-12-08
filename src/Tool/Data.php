@@ -24,6 +24,16 @@ use Mazarini\ToolsBundle\Entity\EntityInterface;
 class Data
 {
     /**
+     * @var string
+     */
+    private $baseRoute;
+
+    /**
+     * @var string
+     */
+    private $currentRoute;
+
+    /**
      * @var \ArrayIterator<int,EntityInterface>
      */
     private $entities;
@@ -34,8 +44,17 @@ class Data
     private $entity;
 
     /**
-     * IsSet the value of entities ?
+     * @var Links
      */
+    private $links;
+
+    public function __construct(string $baseRoute, string $currentRoute, string $currentUrl)
+    {
+        $this->baseRoute = $baseRoute;
+        $this->currentRoute = $currentRoute;
+        $this->links = new Links($currentRoute, $currentUrl);
+    }
+
     public function isSetEntities(): bool
     {
         return isset($this->entities);
@@ -87,5 +106,29 @@ class Data
         $this->entity = $entity;
 
         return $this;
+    }
+
+    /**
+     * Get the value of links.
+     */
+    public function getLinks(): Links
+    {
+        return $this->links;
+    }
+
+    /**
+     * Get the value of Route.
+     */
+    public function getRoute(string $name): string
+    {
+        return $this->baseRoute.$name;
+    }
+
+    /**
+     * Get the value of currentRoute.
+     */
+    public function getCurrentRoute(): string
+    {
+        return $this->currentRoute;
     }
 }
