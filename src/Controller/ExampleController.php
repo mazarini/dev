@@ -22,6 +22,7 @@ namespace App\Controller;
 use App\Entity\Example;
 use App\Form\ExampleType;
 use App\Repository\ExampleRepository;
+use App\Tool\Data;
 use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -39,8 +40,11 @@ class ExampleController extends AbstractController
      */
     public function index(ExampleRepository $exampleRepository): Response
     {
+        $data = new Data();
+        $data->setEntities($exampleRepository->getAll());
+
         return $this->render('example/index.html.twig', [
-            'examples' => $exampleRepository->findAll(),
+            'data' => $data,
         ]);
     }
 
@@ -55,39 +59,44 @@ class ExampleController extends AbstractController
     /**
      * @Route("/{id}", name="example_show", methods={"GET"})
      */
-    public function show(Example $example): Response
+    public function show(Example $entity): Response
     {
+        $data = new Data();
+        $data->setEntity($entity);
+
         return $this->render('example/show.html.twig', [
-            'example' => $example,
+            'data' => $data,
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="example_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Example $example): Response
+    public function edit(Request $request, Example $entity): Response
     {
-        $form = $this->createEntityForm(ExampleType::class, $example);
+        $form = $this->createEntityForm(ExampleType::class, $entity);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            if ($example->isNew()) {
-                $entityManager->persist($example);
+            if ($entity->isNew()) {
+                $entityManager->persist($entity);
             }
             $entityManager->flush();
 
             return $this->redirectToRoute('example_index');
         }
 
-        if ($example->isNew()) {
+        $data = new Data();
+        $data->setEntity($entity);
+        if ($entity->isNew()) {
             $twig = 'example/new.html.twig';
         } else {
             $twig = 'example/edit.html.twig';
         }
 
         return $this->render($twig, [
-            'example' => $example,
+            'data' => $data,
             'form' => $form->createView(),
         ]);
     }
@@ -95,11 +104,11 @@ class ExampleController extends AbstractController
     /**
      * @Route("/{id}", name="example_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Example $example): Response
+    public function delete(Request $request, Example $entity): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$example->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($example);
+            $entityManager->remove($entity);
             $entityManager->flush();
         }
 

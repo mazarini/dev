@@ -14,14 +14,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for example in examples %}
+			{% for entity in data.entities %}
 				<tr>
-					<td>{{ example.id }}</td>
-					<td>{{ example.col1 }}</td>
-					<td>{{ example.col2 }}</td>
+					<td>{{ entity.id }}</td>
+					<td>{{ entity.col1 }}</td>
+					<td>{{ entity.col2 }}</td>
 					<td>
-						<a href="{{ path('example_show', {'id': example.id}) }}">show</a>
-						<a href="{{ path('example_edit', {'id': example.id}) }}">edit</a>
+						<a href="{{ path('example_show', {'id': entity.id}) }}">show</a>
+						<a href="{{ path('example_edit', {'id': entity.id}) }}">edit</a>
 					</td>
 				</tr>
 			{% else %}
