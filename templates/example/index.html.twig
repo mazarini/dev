@@ -20,8 +20,8 @@
 					<td>{{ entity.col1 }}</td>
 					<td>{{ entity.col2 }}</td>
 					<td>
-						<a href="{{ path('example_show', {'id': entity.id}) }}">show</a>
-						<a href="{{ path('example_edit', {'id': entity.id}) }}">edit</a>
+						<a class="btn btn-primary btn-sm" href="{{ path('example_show', {'id': entity.id}) }}" role=" button">show</a>
+						<a class="btn btn-primary btn-sm" href="{{ path('example_edit', {'id': entity.id}) }}" role=" button">edit</a>
 					</td>
 				</tr>
 			{% else %}
@@ -30,6 +30,13 @@
 				</tr>
 			{% endfor %}
 		</tbody>
+		<thead>
+			<tr>
+				<th colspan="3"></th>
+				<th>
+					<a class="btn btn-primary btn-sm" href="{{ path('example_new') }}" role=" button">New</a>
+				</th>
+			</tr>
+		</thead>
 	</table>
-	<a href="{{ path('example_new') }}">Create new</a>
 {% endblock %}
