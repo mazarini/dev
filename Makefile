@@ -103,7 +103,7 @@ dbinit:
 
 dbreset: dbdrop dbinit
 
-fixtures:
+fixtures: dbreset
 	bin/console doctrine:fixtures:load
 
 ############################################
@@ -120,7 +120,7 @@ test:
 	vendor/bin/simple-phpunit -v
 
 cover-text: clean
-	php7.4 vendor/bin/simple-phpunit -v --coverage-text
+	vendor/bin/simple-phpunit -v --coverage-text
 
 cover: clean
-	php7.4 vendor/bin/simple-phpunit --coverage-html var/test-coverage
+	vendor/bin/simple-phpunit --coverage-html var/test-coverage

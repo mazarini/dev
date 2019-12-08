@@ -20,6 +20,7 @@
         "symfony/yaml": "^4.4|^5.0"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
         "mazarini/package": "^1.1",
         "mazarini/test-bundle": "^1.0@dev",
         "symfony/debug-pack": "^1.0",
