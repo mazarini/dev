@@ -46,7 +46,7 @@ class ExamplePaginationController extends AbstractPaginationController
     }
 
     /**
-     * @Route("/page-{page}.html", name="example_page_page", methods={"GET"})
+     * @Route("/page-{page<[1-9]\d*>}.html", name="example_page_page", methods={"GET"})
      */
     public function page(ExampleRepository $ExampleRepository, int $page = 1): Response
     {
@@ -54,7 +54,7 @@ class ExamplePaginationController extends AbstractPaginationController
     }
 
     /**
-     * @Route("/{id}", name="example_page_show", methods={"GET"})
+     * @Route("/show-{id<[1-9]\d*>}.html", name="example_page_show", methods={"GET"})
      */
     public function show(Example $entity): Response
     {

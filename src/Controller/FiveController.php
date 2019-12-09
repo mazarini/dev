@@ -19,9 +19,9 @@
 
 namespace App\Controller;
 
-use App\Entity\EmptyRow;
-use App\Form\EmptyRowType;
-use App\Repository\EmptyRowRepository;
+use App\Entity\Five;
+use App\Form\FiveType;
+use App\Repository\FiveRepository;
 use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -30,18 +30,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * @Route("/empty")
+ * @Route("/five")
  */
-class EmptyRowController extends AbstractCrudController
+class FiveController extends AbstractCrudController
 {
     public function __construct(RequestStack $requestStack, UrlGeneratorInterface $router)
     {
-        parent::__construct($requestStack, $router, 'empty_row');
-        $this->twigFolder = 'emptyRow/';
+        parent::__construct($requestStack, $router, 'five');
+        $this->twigFolder = 'five/';
     }
 
     /**
-     * @Route("/", name="empty_row_index", methods={"GET"})
+     * @Route("/", name="five_index", methods={"GET"})
      */
     public function index(): Response
     {
@@ -49,43 +49,43 @@ class EmptyRowController extends AbstractCrudController
     }
 
     /**
-     * @Route("/page-{page<[1-9]\d*>}.html", name="empty_row_page", methods={"GET"})
+     * @Route("/page-{page<[1-9]\d*>}.html", name="five_page", methods={"GET"})
      */
-    public function page(EmptyRowRepository $EmptyRowRepository, int $page = 1): Response
+    public function page(FiveRepository $FiveRepository, int $page = 1): Response
     {
-        return $this->PageAction($EmptyRowRepository, $page);
+        return $this->PageAction($FiveRepository, $page);
     }
 
     /**
-     * @Route("/new.html", name="empty_row_new", methods={"GET","POST"})
+     * @Route("/new.html", name="five_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
-        return $this->editAction($request, new EmptyRow(), EmptyRowType::class);
+        return $this->editAction($request, new Five(), FiveType::class);
     }
 
     /**
-     * @Route("/show-{id<[1-9]\d*>}.html", name="empty_row_show", methods={"GET"})
+     * @Route("/show-{id<[1-9]\d*>}.html", name="five_show", methods={"GET"})
      */
-    public function show(EmptyRow $entity): Response
+    public function show(Five $entity): Response
     {
         return $this->showAction($entity);
     }
 
     /**
-     * @Route("/edit-{id<[1-9]\d*>}.html", name="empty_row_edit", methods={"GET","POST"})
+     * @Route("/edit-{id<[1-9]\d*>}.html", name="five_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, EmptyRow $entity): Response
+    public function edit(Request $request, Five $entity): Response
     {
-        return $this->editAction($request, $entity, EmptyRowType::class);
+        return $this->editAction($request, $entity, FiveType::class);
     }
 
     /**
      * delete.
      *
-     * @Route("/delete-{id<[1-9]\d*>}.html", name="empty_row_delete", methods={"DELETE"})
+     * @Route("/delete-{id<[1-9]\d*>}.html", name="five_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, EmptyRow $entity): Response
+    public function delete(Request $request, Five $entity): Response
     {
         return $this->deleteAction($request, $entity);
     }

@@ -49,7 +49,7 @@ class ExampleCrudController extends AbstractCrudController
     }
 
     /**
-     * @Route("/page-{page}.html", name="example_page", methods={"GET"})
+     * @Route("/page-{page<[1-9]\d*>}.html", name="example_page", methods={"GET"})
      */
     public function page(ExampleRepository $ExampleRepository, int $page = 1): Response
     {
@@ -57,7 +57,7 @@ class ExampleCrudController extends AbstractCrudController
     }
 
     /**
-     * @Route("/new", name="example_new", methods={"GET","POST"})
+     * @Route("/new.html", name="example_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -65,7 +65,7 @@ class ExampleCrudController extends AbstractCrudController
     }
 
     /**
-     * @Route("/{id}", name="example_show", methods={"GET"})
+     * @Route("/show-{id<[1-9]\d*>}.html", name="example_show", methods={"GET"})
      */
     public function show(Example $entity): Response
     {
@@ -73,7 +73,7 @@ class ExampleCrudController extends AbstractCrudController
     }
 
     /**
-     * @Route("/{id}/edit", name="example_edit", methods={"GET","POST"})
+     * @Route("/edit-{id<[1-9]\d*>}.html", name="example_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Example $entity): Response
     {
@@ -83,7 +83,7 @@ class ExampleCrudController extends AbstractCrudController
     /**
      * delete.
      *
-     * @Route("/{id}", name="example_delete", methods={"DELETE"})
+     * @Route("/delete-{id<[1-9]\d*>.html}", name="example_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Example $entity): Response
     {
