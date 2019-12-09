@@ -119,6 +119,7 @@ clean:
 	cp var/data/origine.db var/data/sqlite.db
 
 test:
+	cp var/data/origine.db var/data/sqlite.db
 	vendor/bin/simple-phpunit -v
 
 cover-text: clean

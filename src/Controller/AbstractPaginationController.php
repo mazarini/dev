@@ -51,6 +51,8 @@ abstract class AbstractPaginationController extends AbstractController
                     $data->addLink('page-'.$i, '_page', ['page' => $i]);
                 }
             }
+        } else {
+            $data->addLink('index', '_page', ['page' => 1]);
         }
 
         return $this;

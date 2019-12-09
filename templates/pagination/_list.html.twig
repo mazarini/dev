@@ -22,8 +22,12 @@
 					{% endblock page_row %}
 					{% block page_button %}
 						<td>
-							<a class="btn btn-primary btn-sm" href="{{ data.links['show-' ~ entity.id].url }}" role=" button">Show</a>
-							<a class="btn btn-primary btn-sm" href="{{ data.links['edit-' ~ entity.id].url }}" role=" button">Edit</a>
+							{% if data.links['show-' ~ entity.id].url != '#' %}
+								<a class="btn btn-primary btn-sm" href="{{ data.links['show-' ~ entity.id].url }}" role=" button">Show</a>
+							{% endif %}
+							{% if data.links['edit-' ~ entity.id].url != '#' %}
+								<a class="btn btn-primary btn-sm" href="{{ data.links['edit-' ~ entity.id].url }}" role=" button">Edit</a>
+							{% endif %}
 						</td>
 					{% endblock page_button %}
 				</tr>
@@ -33,10 +37,13 @@
 						<td colspan="4">no records found</td>
 					{% endblock page_not_found %}
 				</tr>
+
 			{% endfor %}
 		</tbody>
 		<thead>
-			{% block page_new %}{% endblock page_new %}
+			{% if data.links['new'].url != '#' %}
+				{% block page_new %}{% endblock page_new %}
+			{% endif %}
 		</thead>
 	</table>
 	{% embed 'pagination/nav.html.twig' %}{% endembed %}

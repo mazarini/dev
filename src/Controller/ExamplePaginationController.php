@@ -20,10 +20,7 @@
 namespace App\Controller;
 
 use App\Entity\Example;
-use App\Form\ExampleType;
 use App\Repository\ExampleRepository;
-use Mazarini\ToolsBundle\Entity\EntityInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,16 +29,16 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * @Route("/")
  */
-class ExampleController extends AbstractCrudController
+class ExamplePaginationController extends AbstractPaginationController
 {
     public function __construct(RequestStack $requestStack, UrlGeneratorInterface $router)
     {
-        parent::__construct($requestStack, $router, 'example');
+        parent::__construct($requestStack, $router, 'example_page');
         $this->twigFolder = 'example/';
     }
 
     /**
-     * @Route("/", name="example_index", methods={"GET"})
+     * @Route("/", name="example_page_index", methods={"GET"})
      */
     public function index(): Response
     {
@@ -49,7 +46,7 @@ class ExampleController extends AbstractCrudController
     }
 
     /**
-     * @Route("/page-{page}.html", name="example_page", methods={"GET"})
+     * @Route("/page-{page}.html", name="example_page_page", methods={"GET"})
      */
     public function page(ExampleRepository $ExampleRepository, int $page = 1): Response
     {
@@ -57,41 +54,10 @@ class ExampleController extends AbstractCrudController
     }
 
     /**
-     * @Route("/new", name="example_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        return $this->editAction($request, new Example(), ExampleType::class);
-    }
-
-    /**
-     * @Route("/{id}", name="example_show", methods={"GET"})
+     * @Route("/{id}", name="example_page_show", methods={"GET"})
      */
     public function show(Example $entity): Response
     {
         return $this->showAction($entity);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="example_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Example $entity): Response
-    {
-        return $this->editAction($request, $entity, ExampleType::class);
-    }
-
-    /**
-     * delete.
-     *
-     * @Route("/{id}", name="example_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Example $entity): Response
-    {
-        return $this->deleteAction($request, $entity);
-    }
-
-    protected function valid(EntityInterface $entity): bool
-    {
-        return true;
     }
 }

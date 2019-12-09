@@ -16,7 +16,23 @@
 {% block body %}
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-3"></div>
+			<div class="col-3">
+				<div class="list-group">
+					<a href="{{ path('example_page_index') }}" class="list-group-item list-group-item-action">
+						Pagination
+					</a>
+				</div>
+				<div class="list-group">
+					<a href="{{ path('example_index') }}" class="list-group-item list-group-item-action">
+						Example
+					</a>
+				</div>
+				<div class="list-group">
+					<a href="{{ path('empty_row_index') }}" class="list-group-item list-group-item-action">
+						Empty
+					</a>
+				</div>
+			</div>
 			<div class="col-9">
 				<h1>
 					{% block title %}{% endblock title %}
