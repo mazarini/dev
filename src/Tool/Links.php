@@ -52,6 +52,18 @@ class Links extends \ArrayIterator
      *
      * @return self<string,Link>
      */
+    public function setCurrentUrl(string $url): self
+    {
+        $this->currentUrl = $url;
+
+        return $this;
+    }
+
+    /**
+     * addLink.
+     *
+     * @return self<string,Link>
+     */
     public function addLink(string $name, string $url = ''): self
     {
         $this[mb_strtolower($name)] = new Link($url);

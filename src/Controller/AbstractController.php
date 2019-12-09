@@ -20,16 +20,13 @@
 namespace App\Controller;
 
 use App\Tool\Data;
-use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as SymfonyControler;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 abstract class AbstractController extends SymfonyControler
 {
-    use ActionTrait;
     /**
      * @var string
      */
@@ -65,20 +62,6 @@ abstract class AbstractController extends SymfonyControler
     }
 
     /**
-     * createEntityForm.
-     *
-     * Creates and returns a Form instance from the type of the form.
-     *
-     * @param array<int,mixed> $options
-     *
-     * @return FormInterface<string,mixed>
-     */
-    protected function createEntityForm(string $type, EntityInterface $entity = null, array $options = []): FormInterface
-    {
-        return $this->container->get('form.factory')->createNamed('Entity', $type, $entity, $options);
-    }
-
-    /**
      * DataRender.
      *
      * @param array<string,mixed> $parameters
@@ -91,68 +74,5 @@ abstract class AbstractController extends SymfonyControler
         return $this->render($this->twigFolder.$view, $parameters, $response);
     }
 
-    protected function crudUrl(Data $data): self
-    {
-        if ($data->isSetEntity()) {
-            $id = $data->getEntity()->getId();
-            $parameters = ['id' => $id];
-            foreach (['_edit', '_show', '_delete'] as $action) {
-                $data->addLink($action, $action, $parameters);
-            }
-        }
-        foreach (['_new', '_index'] as $action) {
-            $data->addLink($action, $action);
-        }
-
-        return $this;
-    }
-
-    protected function PaginationUrl(Data $data): self
-    {
-        if ($data->isSetEntities()) {
-            $pagination = $data->getPagination();
-            if ($pagination->hasPreviousPage()) {
-                $data->addLink('first', '_page', ['page' => 1]);
-                $data->addLink('previous', '_page', ['page' => $pagination->getCurrentPage() - 1]);
-            }
-            if ($pagination->hasNextPage()) {
-                $last = $pagination->getLastPage();
-                $data->addLink('Next', '_page', ['page' => $pagination->getCurrentPage() + 1]);
-                $data->addLink('Last', '_page', ['page' => $last]);
-            }
-            if (($last = $pagination->getLastPage()) <= 20) {
-                for ($i = 1; $i <= $last; ++$i) {
-                    $data->addLink('page-'.$i, '_page', ['page' => $i]);
-                }
-            }
-        }
-
-        return $this;
-    }
-
-    protected function listUrl(Data $data): self
-    {
-        if ($data->isSetEntities()) {
-            foreach ($data->getEntities() as $entity) {
-                $id = $entity->getId();
-                $parameters = ['id' => $id];
-                foreach (['_edit', '_show'] as $action) {
-                    $data->addLink($action.'-'.$id, $action, $parameters);
-                }
-            }
-        }
-
-        return $this;
-    }
-
-    protected function initUrl(Data $data): self
-    {
-        $this->crudUrl($data);
-        $this->listUrl($data);
-        $this->paginationUrl($data);
-
-        return $this;
-    }
-
-    abstract protected function valid(EntityInterface $entity): bool;
+    abstract protected function initUrl(Data $data): self;
 }

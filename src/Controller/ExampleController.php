@@ -32,7 +32,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * @Route("/")
  */
-class ExampleController extends AbstractController
+class ExampleController extends AbstractCrudController
 {
     public function __construct(RequestStack $requestStack, UrlGeneratorInterface $router)
     {
