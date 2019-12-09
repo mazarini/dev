@@ -55,13 +55,13 @@ class UrlEmptyRowControllerTest extends WebTestCase
      */
     public function getUrls(): \Traversable
     {
-        yield ['/emptyrow', 'GET', 301];
-        yield ['/emptyrow/'];
-        yield ['/emptyrow/page-0.html'];
-        yield ['/emptyrow/page-1.html'];
-        yield ['/emptyrow/page-2.html'];
-        yield ['/emptyrow/new'];
-        yield ['/emptyrow/1', 'GET', 404];
-        yield ['/emptyrow/1/edit', 'GET', 404];
+        yield ['/empty', 'GET', 301];
+        yield ['/empty/', 'GET', 302];
+        yield ['/empty/page-0.html'];
+        yield ['/empty/page-1.html'];
+        yield ['/empty/page-2.html'];
+        yield ['/empty/new'];
+        yield ['/empty/1', 'GET', 404];
+        yield ['/empty/1/edit', 'GET', 404];
     }
 }

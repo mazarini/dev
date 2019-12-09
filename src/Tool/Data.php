@@ -151,4 +151,12 @@ class Data
     {
         return trim($this->currentRoute, '_');
     }
+
+    /**
+     * Get the value of Route.
+     */
+    public function getRoute(string $route): string
+    {
+        return trim($this->baseRoute).$route;
+    }
 }
