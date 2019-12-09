@@ -21,9 +21,8 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
 
-class UrlControllerTest extends WebTestCase
+class UrlEmptyRowControllerTest extends WebTestCase
 {
     /**
      * @var KernelBrowser;
@@ -38,12 +37,12 @@ class UrlControllerTest extends WebTestCase
     /**
      * @dataProvider getUrls
      */
-    public function testUrls(string $url, string $method = 'GET'): void
+    public function testUrls(string $url, string $method = 'GET', int $response = 200): void
     {
         $this->client->request($method, $url);
 
         $this->assertSame(
-            Response::HTTP_OK,
+            $response,
             $this->client->getResponse()->getStatusCode(),
             sprintf('The %s public URL loads correctly.', $url)
         );
@@ -56,8 +55,13 @@ class UrlControllerTest extends WebTestCase
      */
     public function getUrls(): \Traversable
     {
-        yield ['/new'];
-        yield ['/1'];
-        yield ['/1/edit'];
+        yield ['/emptyrow', 'GET', 301];
+        yield ['/emptyrow/'];
+        yield ['/emptyrow/page-0.html'];
+        yield ['/emptyrow/page-1.html'];
+        yield ['/emptyrow/page-2.html'];
+        yield ['/emptyrow/new'];
+        yield ['/emptyrow/1', 'GET', 404];
+        yield ['/emptyrow/1/edit', 'GET', 404];
     }
 }
