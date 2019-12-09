@@ -76,6 +76,7 @@ install:
   - composer $INSTALL
   - ./bin/phpunit install
   - '[[ "$OPTION" == "" ]] || phpenv global $OPTION && php -v'
+  - cp var/data/origine.db var/data/sqlite.db
 script:
   - '[[ "$CONTROL" == "YES" ]] || ./bin/phpunit -v'
   - '[[ "$CONTROL" == "" ]] || ./bin/phpunit -v --coverage-text'
