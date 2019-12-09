@@ -1,0 +1,43 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	<table class="table">
+		<thead>
+			<tr>
+				{% block page_title %}
+					<th>Id</th>
+					<th>Col3</th>
+					<th>Col4</th>
+					<th>actions</th>
+				{% endblock page_title %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for entity in data.entities %}
+				<tr>
+					{% block page_row %}
+						<td>{{ entity.id }}</td>
+						<td>{{ entity.col3 }}</td>
+						<td>{{ entity.col4 }}</td>
+					{% endblock page_row %}
+					{% block page_button %}
+						<td>
+							<a class="btn btn-primary btn-sm" href="{{ data.links['show-' ~ entity.id].url }}" role=" button">Show</a>
+							<a class="btn btn-primary btn-sm" href="{{ data.links['edit-' ~ entity.id].url }}" role=" button">Edit</a>
+						</td>
+					{% endblock page_button %}
+				</tr>
+			{% else %}
+				<tr>
+					{% block page_not_found %}
+						<td colspan="4">no records found</td>
+					{% endblock page_not_found %}
+				</tr>
+			{% endfor %}
+		</tbody>
+		<thead>
+			{% block page_new %}{% endblock page_new %}
+		</thead>
+	</table>
+	{% embed 'pagination/nav.html.twig' %}{% endembed %}
+{% endblock content %}

@@ -1,9 +1,20 @@
-{% extends 'layout.html.twig' %}
+{% extends 'crud/_view.html.twig' %}
 
 {% block title %}
 	emptyRow
-{% endblock %}
+{% endblock title %}
 
-{% block content %}
-	{{ include('emptyRow/_view.html.twig') }}
-{% endblock %}
+{% block view_content %}
+	<tr>
+		<th>Id</th>
+		<td>{{ data.entity.id }}</td>
+	</tr>
+	<tr>
+		<th>Col3</th>
+		<td>{{ data.entity.col3 }}</td>
+	</tr>
+	<tr>
+		<th>Col4</th>
+		<td>{{ data.entity.col4 }}</td>
+	</tr>
+{% endblock view_content %}
