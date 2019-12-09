@@ -2,8 +2,19 @@
 
 {% block title %}
 	Example
-{% endblock %}
+{% endblock title %}
 
-{% block content %}
-	{{ include('example/_view.html.twig') }}
-{% endblock %}
+{% block view_content %}
+	<tr>
+		<th>Id</th>
+		<td>{{ data.entity.id }}</td>
+	</tr>
+	<tr>
+		<th>Col1</th>
+		<td>{{ data.entity.col1 }}</td>
+	</tr>
+	<tr>
+		<th>Col2</th>
+		<td>{{ data.entity.col2 }}</td>
+	</tr>
+{% endblock view_content %}

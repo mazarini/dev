@@ -19,8 +19,6 @@
 
 namespace App\Controller;
 
-use App\Entity\EmptyRow;
-use App\Form\EmptyRowType;
 use App\Repository\AbstractRepository;
 use App\Tool\Data;
 use Mazarini\ToolsBundle\Entity\EntityInterface;
@@ -51,16 +49,16 @@ trait ActionTrait
         return $this->dataRender('index.html.twig');
     }
 
-    public function showAction(EmptyRow $entity): Response
+    public function showAction(EntityInterface $entity): Response
     {
         $this->data->setEntity($entity);
 
         return $this->dataRender('show.html.twig', []);
     }
 
-    public function editAction(Request $request, EntityInterface $entity): Response
+    public function editAction(Request $request, EntityInterface $entity, string $formTypeClass): Response
     {
-        $form = $this->createEntityForm(EmptyRowType::class, $entity);
+        $form = $this->createEntityForm($formTypeClass, $entity);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && $this->valid($entity)) {

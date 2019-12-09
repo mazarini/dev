@@ -20,53 +20,17 @@
 namespace App\Repository;
 
 use App\Entity\Example;
-use App\Pagination\Pagination;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\Tools\Pagination\CountWalker;
-use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
-use Mazarini\ToolsBundle\Entity\EntityInterface;
 
 /**
  * @method Example|null find($id, $lockMode = null, $lockVersion = null)
  * @method Example|null findOneBy(array $criteria, array $orderBy = null)
  * @method Example[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ExampleRepository extends ServiceEntityRepository
+class ExampleRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Example::class);
-    }
-
-    /**
-     * getAll.
-     *
-     * @return \ArrayIterator<int,EntityInterface>
-     */
-    public function getAll(): \ArrayIterator
-    {
-        return new \arrayIterator(parent::FindAll());
-    }
-
-    public function getPage(int $currentPage = 1, int $pageSize = 10): Pagination
-    {
-        $query = $this->createQueryBuilder('a')
-            ->addSelect('a')
-            ->orderBy('a.id', 'ASC')
-            ->getQuery()
-            ->setHint(CountWalker::HINT_DISTINCT, false)
-            ->setMaxResults($pageSize)
-        ;
-        $paginator = new DoctrinePaginator($query, true);
-        $totalCount = $paginator->count();
-        if (0 === $totalCount) {
-            return new Pagination(new \ArrayIterator([]), $currentPage, $totalCount, $pageSize);
-        }
-        $currentPage = Pagination::CURRENT_PAGE($currentPage, $pageSize, $totalCount);
-        $query->setFirstResult(($currentPage - 1) * $pageSize);
-        $result = $paginator->getIterator();
-
-        return new Pagination($result, $currentPage, $totalCount, $pageSize);
     }
 }

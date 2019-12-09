@@ -22,10 +22,7 @@ namespace App\Controller;
 use App\Entity\Example;
 use App\Form\ExampleType;
 use App\Repository\ExampleRepository;
-use App\Tool\Data;
 use Mazarini\ToolsBundle\Entity\EntityInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,47 +34,26 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class ExampleController extends AbstractController
 {
-    /**
-     * @var Data
-     */
-    protected $data;
-
-    /**
-     * @var array<string,mixed>
-     */
-    protected $parameters;
-
     public function __construct(RequestStack $requestStack, UrlGeneratorInterface $router)
     {
-        $currentUrl = '';
-        $base = '';
-        $current = '';
-        $request = $requestStack->getMasterRequest();
-        if (null !== $request) {
-            $currentUrl = $request->getPathInfo();
-            $part = explode('_', $request->attributes->get('_route'));
-            if (\count($part) > 1) {
-                $base = $part[array_key_first($part)];
-                $part[array_key_first($part)] = '';
-                $current = implode('_', $part);
-            } else {
-                $current = $request->attributes->get('_route');
-            }
-        }
-
-        $this->data = new Data($router, $base, $current, $currentUrl);
-        $this->parameters['data'] = $this->data;
+        parent::__construct($requestStack, $router, 'example');
+        $this->twigFolder = 'example/';
     }
 
     /**
      * @Route("/", name="example_index", methods={"GET"})
+     */
+    public function index(): Response
+    {
+        return $this->indexAction();
+    }
+
+    /**
      * @Route("/page-{page}.html", name="example_page", methods={"GET"})
      */
-    public function index(ExampleRepository $exampleRepository, int $page = 1): Response
+    public function page(ExampleRepository $ExampleRepository, int $page = 1): Response
     {
-        $this->data->setPagination($exampleRepository->getPage($page));
-
-        return $this->dataRender('example/index.html.twig');
+        return $this->PageAction($ExampleRepository, $page);
     }
 
     /**
@@ -85,7 +61,7 @@ class ExampleController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        return $this->edit($request, new Example());
+        return $this->editAction($request, new Example(), ExampleType::class);
     }
 
     /**
@@ -93,9 +69,7 @@ class ExampleController extends AbstractController
      */
     public function show(Example $entity): Response
     {
-        $this->data->setEntity($entity);
-
-        return $this->dataRender('example/show.html.twig', []);
+        return $this->showAction($entity);
     }
 
     /**
@@ -103,132 +77,21 @@ class ExampleController extends AbstractController
      */
     public function edit(Request $request, Example $entity): Response
     {
-        $form = $this->createEntityForm(ExampleType::class, $entity);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            if ($entity->isNew()) {
-                $entityManager->persist($entity);
-            }
-            $entityManager->flush();
-
-            return $this->redirectToRoute('example_show', ['id' => $entity->getId()]);
-        }
-
-        $this->data->setEntity($entity);
-        if ($entity->isNew()) {
-            $twig = 'example/new.html.twig';
-        } else {
-            $twig = 'example/edit.html.twig';
-        }
-
-        return $this->dataRender($twig, [
-            'form' => $form->createView(),
-        ]);
+        return $this->editAction($request, $entity, ExampleType::class);
     }
 
     /**
+     * delete.
+     *
      * @Route("/{id}", name="example_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Example $entity): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($entity);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('example_index');
+        return $this->deleteAction($request, $entity);
     }
 
-    /**
-     * createEntityForm.
-     *
-     * Creates and returns a Form instance from the type of the form.
-     *
-     * @param array<int,mixed> $options
-     *
-     * @return FormInterface<string,mixed>
-     */
-    protected function createEntityForm(string $type, EntityInterface $entity = null, array $options = []): FormInterface
+    protected function valid(EntityInterface $entity): bool
     {
-        return $this->container->get('form.factory')->createNamed('Entity', $type, $entity, $options);
-    }
-
-    /**
-     * DataRender.
-     *
-     * @param array<string,mixed> $parameters
-     */
-    protected function dataRender(string $view, array $parameters = [], Response $response = null): Response
-    {
-        $parameters = array_merge($this->parameters, $parameters);
-        $this->initUrl($this->data);
-
-        return $this->render($view, $parameters, $response);
-    }
-
-    protected function crudUrl(Data $data): self
-    {
-        if ($data->isSetEntity()) {
-            $id = $data->getEntity()->getId();
-            $parameters = ['id' => $id];
-            foreach (['_edit', '_show', '_delete'] as $action) {
-                $data->addLink($action, $action, $parameters);
-            }
-        }
-        foreach (['_new', '_index'] as $action) {
-            $data->addLink($action, $action);
-        }
-
-        return $this;
-    }
-
-    protected function PaginationUrl(Data $data): self
-    {
-        if ($data->isSetEntities()) {
-            $pagination = $data->getPagination();
-            if ($pagination->hasPreviousPage()) {
-                $data->addLink('first', '_page', ['page' => 1]);
-                $data->addLink('previous', '_page', ['page' => $pagination->getCurrentPage() - 1]);
-            }
-            if ($pagination->hasNextPage()) {
-                $last = $pagination->getLastPage();
-                $data->addLink('Next', '_page', ['page' => $pagination->getCurrentPage() + 1]);
-                $data->addLink('Last', '_page', ['page' => $last]);
-            }
-            if (($last = $pagination->getLastPage()) <= 20) {
-                for ($i = 1; $i <= $last; ++$i) {
-                    $data->addLink('page-'.$i, '_page', ['page' => $i]);
-                }
-            }
-        }
-
-        return $this;
-    }
-
-    protected function listUrl(Data $data): self
-    {
-        if ($data->isSetEntities()) {
-            foreach ($data->getEntities() as $entity) {
-                $id = $entity->getId();
-                $parameters = ['id' => $id];
-                foreach (['_edit', '_show', '_delete'] as $action) {
-                    $data->addLink($action.'-'.$id, $action, $parameters);
-                }
-            }
-        }
-
-        return $this;
-    }
-
-    protected function initUrl(Data $data): self
-    {
-        $this->crudUrl($data);
-        $this->listUrl($data);
-        $this->paginationUrl($data);
-
-        return $this;
+        return true;
     }
 }

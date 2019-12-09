@@ -21,7 +21,6 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
 
 class HomeControllerTest extends WebTestCase
 {
@@ -38,12 +37,12 @@ class HomeControllerTest extends WebTestCase
     /**
      * @dataProvider getUrls
      */
-    public function testUrls(string $url): void
+    public function testUrls(string $url, string $method = 'GET', int $response = 200): void
     {
-        $this->client->request('GET', $url);
+        $this->client->request($method, $url);
 
         $this->assertSame(
-            Response::HTTP_OK,
+            $response,
             $this->client->getResponse()->getStatusCode(),
             sprintf('The %s public URL loads correctly.', $url)
         );
@@ -56,7 +55,7 @@ class HomeControllerTest extends WebTestCase
      */
     public function getUrls(): \Traversable
     {
-        yield [''];
-        yield ['/'];
+        yield ['', 'GET', 302];
+        yield ['/', 'GET', 302];
     }
 }

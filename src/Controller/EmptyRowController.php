@@ -20,6 +20,7 @@
 namespace App\Controller;
 
 use App\Entity\EmptyRow;
+use App\Form\EmptyRowType;
 use App\Repository\EmptyRowRepository;
 use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,7 +61,7 @@ class EmptyRowController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        return $this->editAction($request, new EmptyRow());
+        return $this->editAction($request, new EmptyRow(), EmptyRowType::class);
     }
 
     /**
@@ -76,7 +77,7 @@ class EmptyRowController extends AbstractController
      */
     public function edit(Request $request, EmptyRow $entity): Response
     {
-        return $this->editAction($request, $entity);
+        return $this->editAction($request, $entity, EmptyRowType::class);
     }
 
     /**
