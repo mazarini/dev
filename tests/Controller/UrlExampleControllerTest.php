@@ -57,12 +57,12 @@ class UrlExampleControllerTest extends WebTestCase
     {
         yield ['/example', 'GET', 301];
         yield ['/example/', 'GET', 302];
-        yield ['/example/page-0.html'];
+        yield ['/example/page-0.html', 'GET', 404];
         yield ['/example/page-1.html'];
         yield ['/example/page-6.html'];
         yield ['/example/page-7.html'];
-        yield ['/example/new'];
-        yield ['/example/1', 'GET', 200];
-        yield ['/example/1/edit', 'GET', 200];
+        yield ['/example/new.html'];
+        yield ['/example/show-1.html', 'GET', 200];
+        yield ['/example/edit-1.html', 'GET', 200];
     }
 }

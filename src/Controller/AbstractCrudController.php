@@ -50,9 +50,11 @@ abstract class AbstractCrudController extends AbstractPaginationController
     {
         if ($data->isSetEntity()) {
             $id = $data->getEntity()->getId();
-            $parameters = ['id' => $id];
-            foreach (['_edit', '_show', '_delete'] as $action) {
-                $data->addLink($action, $action, $parameters);
+            if (0 !== $id) {
+                $parameters = ['id' => $id];
+                foreach (['_edit', '_show', '_delete'] as $action) {
+                    $data->addLink($action, $action, $parameters);
+                }
             }
         }
         foreach (['_new', '_index'] as $action) {
