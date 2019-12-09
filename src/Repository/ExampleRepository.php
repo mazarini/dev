@@ -20,8 +20,11 @@
 namespace App\Repository;
 
 use App\Entity\Example;
+use App\Pagination\Pagination;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\CountWalker;
+use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 use Mazarini\ToolsBundle\Entity\EntityInterface;
 
 /**
@@ -46,32 +49,24 @@ class ExampleRepository extends ServiceEntityRepository
         return new \arrayIterator(parent::FindAll());
     }
 
-    // /**
-    //  * @return Example[] Returns an array of Example objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getPage(int $currentPage = 1, int $pageSize = 10): Pagination
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
+        $query = $this->createQueryBuilder('a')
+            ->addSelect('a')
+            ->orderBy('a.id', 'ASC')
             ->getQuery()
-            ->getResult()
+            ->setHint(CountWalker::HINT_DISTINCT, false)
+            ->setMaxResults($pageSize)
         ;
-    }
-    */
+        $paginator = new DoctrinePaginator($query, true);
+        $totalCount = $paginator->count();
+        if (0 === $totalCount) {
+            return new Pagination(new \ArrayIterator([]), $currentPage, $totalCount, $pageSize);
+        }
+        $currentPage = Pagination::CURRENT_PAGE($currentPage, $pageSize, $totalCount);
+        $query->setFirstResult(($currentPage - 1) * $pageSize);
+        $result = $paginator->getIterator();
 
-    /*
-    public function findOneBySomeField($value): ?Example
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return new Pagination($result, $currentPage, $totalCount, $pageSize);
     }
-    */
 }

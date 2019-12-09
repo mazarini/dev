@@ -19,6 +19,7 @@
 
 namespace App\Tool;
 
+use App\Pagination\Pagination;
 use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -39,9 +40,9 @@ class Data
     private $currentRoute;
 
     /**
-     * @var \ArrayIterator<int,EntityInterface>
+     * @var Pagination
      */
-    private $entities;
+    private $pagination;
 
     /**
      * @var EntityInterface
@@ -63,7 +64,7 @@ class Data
 
     public function isSetEntities(): bool
     {
-        return isset($this->entities);
+        return isset($this->pagination);
     }
 
     /**
@@ -73,17 +74,23 @@ class Data
      */
     public function getEntities(): \ArrayIterator
     {
-        return $this->entities;
+        return $this->pagination->getEntities();
     }
 
     /**
-     * Set the value of entities.
-     *
-     * @param \ArrayIterator<int,EntityInterface> $entities
+     * Get the value of entities.
      */
-    public function setEntities(\ArrayIterator $entities): self
+    public function getPagination(): Pagination
     {
-        $this->entities = $entities;
+        return $this->pagination;
+    }
+
+    /**
+     * Set the value of pagination.
+     */
+    public function setPagination(Pagination $pagination): self
+    {
+        $this->pagination = $pagination;
 
         return $this;
     }

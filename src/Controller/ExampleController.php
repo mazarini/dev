@@ -71,10 +71,11 @@ class ExampleController extends AbstractController
 
     /**
      * @Route("/", name="example_index", methods={"GET"})
+     * @Route("/page-{page}.html", name="example_page", methods={"GET"})
      */
-    public function index(ExampleRepository $exampleRepository): Response
+    public function index(ExampleRepository $exampleRepository, int $page = 1): Response
     {
-        $this->data->setEntities($exampleRepository->getAll());
+        $this->data->setPagination($exampleRepository->getPage($page));
 
         return $this->dataRender('example/index.html.twig');
     }
@@ -184,6 +185,29 @@ class ExampleController extends AbstractController
         return $this;
     }
 
+    protected function PaginationUrl(Data $data): self
+    {
+        if ($data->isSetEntities()) {
+            $pagination = $data->getPagination();
+            if ($pagination->hasPreviousPage()) {
+                $data->addLink('first', '_page', ['page' => 1]);
+                $data->addLink('previous', '_page', ['page' => $pagination->getCurrentPage() - 1]);
+            }
+            if ($pagination->hasNextPage()) {
+                $last = $pagination->getLastPage();
+                $data->addLink('Next', '_page', ['page' => $pagination->getCurrentPage() + 1]);
+                $data->addLink('Last', '_page', ['page' => $last]);
+            }
+            if (($last = $pagination->getLastPage()) <= 20) {
+                for ($i = 1; $i <= $last; ++$i) {
+                    $data->addLink('page-'.$i, '_page', ['page' => $i]);
+                }
+            }
+        }
+
+        return $this;
+    }
+
     protected function listUrl(Data $data): self
     {
         if ($data->isSetEntities()) {
@@ -203,6 +227,7 @@ class ExampleController extends AbstractController
     {
         $this->crudUrl($data);
         $this->listUrl($data);
+        $this->paginationUrl($data);
 
         return $this;
     }
