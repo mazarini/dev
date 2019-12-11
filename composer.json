@@ -10,6 +10,7 @@
         "dama/doctrine-test-bundle": "^6.2",
         "mazarini/bootstrap-bundle": "^0.9.0",
         "mazarini/crud-bundle": "^1.0dev",
+        "mazarini/pagination-bundle": "^1.0@dev",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/dotenv": "^4.4|^5.0",
         "symfony/flex": "^1.5",
