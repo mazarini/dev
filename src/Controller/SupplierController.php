@@ -19,9 +19,9 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\UserType;
-use App\Repository\UserRepository;
+use App\Entity\Supplier;
+use App\Form\SupplierType;
+use App\Repository\SupplierRepository;
 use Mazarini\CrudBundle\Controller\AbstractCrudController;
 use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,18 +31,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * @Route("/user")
+ * @Route("/")
  */
-class UserController extends AbstractCrudController
+class SupplierController extends AbstractCrudController
 {
     public function __construct(RequestStack $requestStack, UrlGeneratorInterface $router)
     {
-        parent::__construct($requestStack, $router, 'user');
-        $this->twigFolder = 'user/';
+        parent::__construct($requestStack, $router, 'supplier');
+        $this->twigFolder = 'supplier/';
     }
 
     /**
-     * @Route("/", name="user_index", methods={"GET"})
+     * @Route("/", name="supplier_index", methods={"GET"})
      */
     public function index(): Response
     {
@@ -50,43 +50,43 @@ class UserController extends AbstractCrudController
     }
 
     /**
-     * @Route("/page-{page<[1-9]\d*>}.html", name="user_page", methods={"GET"})
+     * @Route("/page-{page<[1-9]\d*>}.html", name="supplier_page", methods={"GET"})
      */
-    public function page(UserRepository $UserRepository, int $page = 1): Response
+    public function page(SupplierRepository $SupplierRepository, int $page = 1): Response
     {
-        return $this->PageAction($UserRepository, $page);
+        return $this->PageAction($SupplierRepository, $page);
     }
 
     /**
-     * @Route("/new.html", name="user_new", methods={"GET","POST"})
+     * @Route("/new.html", name="supplier_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
-        return $this->editAction($request, new User(), UserType::class);
+        return $this->editAction($request, new Supplier(), SupplierType::class);
     }
 
     /**
-     * @Route("/show-{id<[1-9]\d*>}.html", name="user_show", methods={"GET"})
+     * @Route("/show-{id<[1-9]\d*>}.html", name="supplier_show", methods={"GET"})
      */
-    public function show(User $entity): Response
+    public function show(Supplier $entity): Response
     {
         return $this->showAction($entity);
     }
 
     /**
-     * @Route("/edit-{id<[1-9]\d*>}.html", name="user_edit", methods={"GET","POST"})
+     * @Route("/edit-{id<[1-9]\d*>}.html", name="supplier_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $entity): Response
+    public function edit(Request $request, Supplier $entity): Response
     {
-        return $this->editAction($request, $entity, UserType::class);
+        return $this->editAction($request, $entity, SupplierType::class);
     }
 
     /**
      * delete.
      *
-     * @Route("/delete-{id<[1-9]\d*>}.html", name="user_delete", methods={"DELETE"})
+     * @Route("/delete-{id<[1-9]\d*>}.html", name="supplier_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, User $entity): Response
+    public function delete(Request $request, Supplier $entity): Response
     {
         return $this->deleteAction($request, $entity);
     }

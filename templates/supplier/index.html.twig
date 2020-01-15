@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	User index
+{% endblock %}
+
+{% block content %}
+
+	{% embed '@MazariniPagination/_list.html.twig' with {'span': 1} %}
+
+		{% block page_header %}
+			<th>Name</th>
+			<th>actions</th>
+		{% endblock page_header %}
+
+		{% block page_row %}
+			<td>{{ entity.name }}</td>
+		{% endblock page_row %}
+
+	{% endembed %}
+
+{% endblock content %}

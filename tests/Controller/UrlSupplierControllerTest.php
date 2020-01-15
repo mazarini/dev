@@ -22,7 +22,7 @@ namespace App\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class UrlUserControllerTest extends WebTestCase
+class UrlSupplierControllerTest extends WebTestCase
 {
     /**
      * @var KernelBrowser;
@@ -55,13 +55,13 @@ class UrlUserControllerTest extends WebTestCase
      */
     public function getUrls(): \Traversable
     {
-        yield ['/user', 'GET', 301];
-        yield ['/user/', 'GET', 302];
-        yield ['/user/page-0.html', 'GET', 404];
-        yield ['/user/page-1.html'];
-        yield ['/user/page-2.html', 'GET', 302];
-        yield ['/user/new.html'];
-        yield ['/user/show-1.html', 'GET', 200];
-        yield ['/user/edit-1.html', 'GET', 200];
+        yield ['', 'GET', 302];
+        yield ['/', 'GET', 302];
+        yield ['/page-0.html', 'GET', 404];
+        yield ['/page-1.html'];
+        yield ['/page-2.html', 'GET', 302];
+        yield ['/new.html'];
+        yield ['/show-1.html', 'GET', 200];
+        yield ['/edit-1.html', 'GET', 200];
     }
 }
