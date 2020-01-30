@@ -57,10 +57,12 @@ class UrlDeliveryControllerTest extends WebTestCase
     {
         yield ['/delivery', 'GET', 301];
         yield ['/delivery/', 'GET', 302];
-        yield ['/delivery/page-0.html', 'GET', 404];
-        yield ['/delivery/page-1.html'];
-        yield ['/delivery/page-2.html', 'GET', 302];
-        yield ['/delivery/new.html'];
+        yield ['/delivery/1', 'GET', 302];
+        yield ['/delivery/1/', 'GET', 301];
+        yield ['/delivery/1/page-0.html', 'GET', 404];
+        yield ['/delivery/1/page-1.html'];
+        yield ['/delivery/1/page-2.html', 'GET', 302];
+        yield ['/delivery/1/new.html'];
         yield ['/delivery/show-1.html', 'GET', 200];
         yield ['/delivery/edit-1.html', 'GET', 200];
     }

@@ -23,6 +23,8 @@ use App\Entity\Supplier;
 use App\Form\SupplierType;
 use App\Repository\SupplierRepository;
 use Mazarini\CrudBundle\Controller\AbstractCrudController;
+use Mazarini\ToolsBundle\Controller\AbstractController;
+use Mazarini\ToolsBundle\Data\Data;
 use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -94,5 +96,26 @@ class SupplierController extends AbstractCrudController
     protected function valid(EntityInterface $entity): bool
     {
         return true;
+    }
+
+    /**
+     * listUrl.
+     *
+     * @param array<int,string> $actions
+     */
+    protected function listUrl(Data $data, array $actions): AbstractController
+    {
+        if ($data->isSetEntities()) {
+            foreach ($data->getEntities() as $entity) {
+                $id = $entity->getId();
+                $parameters = ['id' => $id];
+                foreach ($actions as $action) {
+                    $data->addLink($action.'-'.$id, $data->generateUrl('_'.$action, $parameters), $action);
+                }
+                $data->addLink('delivery-'.$id, $data->generateUrl('delivery_page', ['id' => $id, 'page' => 1]), 'Delivery');
+            }
+        }
+
+        return $this;
     }
 }

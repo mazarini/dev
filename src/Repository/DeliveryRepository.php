@@ -20,8 +20,12 @@
 namespace App\Repository;
 
 use App\Entity\Delivery;
+use App\Entity\Supplier;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\CountWalker;
+use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 use Mazarini\PaginationBundle\Repository\AbstractRepository;
+use Mazarini\ToolsBundle\Pagination\Pagination;
 
 /**
  * @method Delivery|null find($id, $lockMode = null, $lockVersion = null)
@@ -30,8 +34,56 @@ use Mazarini\PaginationBundle\Repository\AbstractRepository;
  */
 class DeliveryRepository extends AbstractRepository
 {
+    /**
+     * @var Supplier
+     */
+    protected $supplier;
+
+    /**
+     * __construct.
+     *
+     * @return void
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Delivery::class);
+    }
+
+    /**
+     * Set the value of supplier.
+     *
+     * @return self
+     */
+    public function setSupplier(Supplier $supplier)
+    {
+        $this->supplier = $supplier;
+
+        return $this;
+    }
+
+    public function getPage(int $currentPage = 1, int $pageSize = 10): Pagination
+    {
+        $query = $this->createQueryBuilder('a')
+            ->addSelect('a')
+            ->orderBy('a.day', 'DESC')
+            ->andWhere('a.supplier = :supplier')
+            ->setParameter('supplier', $this->supplier)
+            ->getQuery()
+            ->setHint(CountWalker::HINT_DISTINCT, false)
+            ->setMaxResults($pageSize)
+        ;
+        $paginator = new DoctrinePaginator($query, true);
+        $totalCount = $paginator->count();
+        if (0 === $totalCount) {
+            return new Pagination(new \ArrayIterator([]), $currentPage, $totalCount, $pageSize);
+        }
+        $current = Pagination::CURRENT_PAGE($currentPage, $pageSize, $totalCount);
+        if ($current !== $currentPage) {
+            return new Pagination(new \ArrayIterator([]), $current, $totalCount, $pageSize);
+        }
+        $query->setFirstResult(($currentPage - 1) * $pageSize);
+        $result = $paginator->getIterator();
+
+        return new Pagination($result, $currentPage, $totalCount, $pageSize);
     }
 }

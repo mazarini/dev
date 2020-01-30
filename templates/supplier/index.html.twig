@@ -13,9 +13,20 @@
 			<th>actions</th>
 		{% endblock page_header %}
 
-		{% block page_row %}
-			<td>{{ entity.name }}</td>
-		{% endblock page_row %}
+		{% block page_row_container %}
+			<tr>
+				<td>{{ entity.name }}</td>
+				{% if data.links['show-' ~ entity.id].url != '#' %}
+					<td>
+						{% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': data.links['show-' ~ entity.id]} %}
+						{% if data.links['edit-' ~ entity.id].url != '#' %}
+							{% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': data.links['edit-' ~ entity.id]} %}
+						{% endif %}
+						{% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': data.links['delivery-' ~ entity.id]} %}
+					</td>
+				{% endif %}
+			</tr>
+		{% endblock page_row_container %}
 
 	{% endembed %}
 
