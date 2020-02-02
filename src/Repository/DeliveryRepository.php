@@ -86,4 +86,27 @@ class DeliveryRepository extends AbstractRepository
 
         return new Pagination($result, $currentPage, $totalCount, $pageSize);
     }
+
+    /**
+     * findWeek.
+     *
+     * @return array<int,delivery>
+     */
+    public function findWeek(\Datetime $begin, \Datetime $end): array
+    {
+        $entityManager = $this->getEntityManager();
+        $begin->setTime(23, 59, 59);
+        $end->setTime(23, 59, 59);
+
+        $query = $entityManager->createQuery(
+            'SELECT d
+            FROM App\Entity\Delivery d
+            WHERE :beginDay <= d.day
+            AND d.day <= :endDay
+            ORDER BY d.day ASC'
+        )->setParameter('beginDay', $begin)
+        ->setParameter('endDay', $end);
+        // returns an array of Product objects
+        return $query->getResult();
+    }
 }

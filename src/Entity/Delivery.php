@@ -64,6 +64,7 @@ class Delivery implements EntityInterface
 
     public function setDay(\DateTime $day): self
     {
+        $day->setTime(12, 0, 0, 0);
         $this->day = $day;
 
         return $this;

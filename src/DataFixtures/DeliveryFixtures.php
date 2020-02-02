@@ -35,6 +35,7 @@ class DeliveryFixtures extends Fixture
                 $supplier = $suppliers[$name];
             } else {
                 $supplier = new Supplier();
+                $manager->persist($supplier);
                 $suppliers[$name] = $supplier->setName($name);
             }
             $delivery->setSupplier($supplier);
@@ -43,10 +44,37 @@ class DeliveryFixtures extends Fixture
                 $delivery->setDay($day);
             }
             $delivery->setAmount($amount);
-            $manager->persist($supplier);
             $manager->persist($delivery);
         }
+        $first = new Supplier();
+        $manager->persist($first);
+        $first->setName('First');
+
+        $second = new Supplier();
+        $manager->persist($second);
+        $second->setName('Second');
+
         $manager->flush();
+
+        $day = \DateTime::createFromFormat('Y-m-j', '2019-12-31');
+        if ($day instanceof \Datetime) {
+            for ($i = 1; $i <= 366; ++$i) {
+                $delivery = new Delivery();
+                $delivery->setSupplier($first);
+                $delivery->setDay($day);
+                $delivery->setAmount($i);
+                $manager->persist($delivery);
+
+                $delivery = new Delivery();
+                $delivery->setSupplier($second);
+                $delivery->setDay($day);
+                $delivery->setAmount($i * 100);
+                $manager->persist($delivery);
+
+                $day->add(new \DateInterval('P1D'));
+                $manager->flush();
+            }
+        }
     }
 
     /**
@@ -62,6 +90,7 @@ class DeliveryFixtures extends Fixture
             ['Breadchef', '2020-01-02', 145],
             ['Breadchef', '2020-01-03', 232],
             ['Fisher', '2020-01-01', 350],
+            ['Fisher', '2020-01-03', 442],
             ['Fisher', '2020-01-03', 452],
         ];
     }
