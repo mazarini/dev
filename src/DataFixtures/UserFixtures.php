@@ -22,7 +22,6 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
@@ -39,46 +38,32 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        foreach ($this->getUserData() as [$fullname, $username, $password, $email, $role]) {
+        foreach ($this->getData() as [$username, $roles]) {
             $user = new User();
-            $user->setFullName($fullname);
-            $user->setUsername($username);
-            $user->setEmail($email);
-            $user->setRoles([$role]);
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
+            $user
+                ->setUsername($username)
+                ->setPassword($this->passwordEncoder->encodePassword($user, $username))
+                ->setEmail($username.'@example.com')
+                ->setRoles($roles)
+            ;
             $manager->persist($user);
-        }
-
-        for ($i = 1; $i <= 5; ++$i) {
-            $manager->persist($this->getEntity($i));
         }
 
         $manager->flush();
     }
 
-    protected function getEntity(int $i): EntityInterface
-    {
-        $entity = new User();
-        $entity->setUsername(sprintf('name%02d', $i));
-        $entity->setFullName(sprintf('Name%02d', $i));
-        $entity->setEmail(sprintf('name%02d@example.com', $i));
-        $entity->setRoles(['ROLES_USER']);
-        $entity->setPassword($this->passwordEncoder->encodePassword($entity, sprintf('pass%02d', $i)));
-
-        return $entity;
-    }
-
     /**
-     * getUserData.
+     * getData.
      *
-     * @return array<int,array>
+     * @return array<int,mixed>
      */
-    private function getUserData(): array
+    protected function getData(): array
     {
         return [
-            // $userData = [$fullname, $username, $password, $email, $role];
-            ['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@symfony.com', 'ROLE_ADMIN'],
-            ['Tom Doe', 'tom_admin', 'kitten', 'tom_admin@symfony.com', 'ROLE_ADMIN'],
+//          [$name, $roles]
+            ['admin', ['ROLE_ADMIN']],
+            ['smith', ['ROLE_USER']],
+            ['doe', ['ROLE_USER']],
         ];
     }
 }

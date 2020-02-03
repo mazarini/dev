@@ -24,14 +24,17 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Mazarini\CrudBundle\Controller\AbstractCrudController;
 use Mazarini\ToolsBundle\Entity\EntityInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
+ * @IsGranted("ROLE_ADMIN")
  */
 class UserController extends AbstractCrudController
 {
@@ -52,33 +55,50 @@ class UserController extends AbstractCrudController
     /**
      * @Route("/page-{page<[1-9]\d*>}.html", name="user_page", methods={"GET"})
      */
-    public function page(UserRepository $UserRepository, int $page = 1): Response
+    public function page(UserRepository $userRepository, int $page = 1): Response
     {
-        return $this->PageAction($UserRepository, $page);
+        return $this->PageAction($userRepository, $page);
     }
 
     /**
      * @Route("/new.html", name="user_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
-        return $this->editAction($request, new User(), UserType::class);
+        $user = new User();
+        $this->data->setEntity($user);
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($encoder->encodePassword($user, $form->get('password')->getData()));
+            $user->setRoles(['ROLE_USER']);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        return $this->dataRender('new.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
      * @Route("/show-{id<[1-9]\d*>}.html", name="user_show", methods={"GET"})
      */
-    public function show(User $entity): Response
+    public function show(User $user): Response
     {
-        return $this->showAction($entity);
+        return $this->showAction($user);
     }
 
     /**
      * @Route("/edit-{id<[1-9]\d*>}.html", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $entity): Response
+    public function edit(Request $request, User $user): Response
     {
-        return $this->editAction($request, $entity, UserType::class);
+        return $this->editAction($request, $user, UserType::class);
     }
 
     /**
@@ -86,9 +106,9 @@ class UserController extends AbstractCrudController
      *
      * @Route("/delete-{id<[1-9]\d*>}.html", name="user_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, User $entity): Response
+    public function delete(Request $request, User $user): Response
     {
-        return $this->deleteAction($request, $entity);
+        return $this->deleteAction($request, $user);
     }
 
     protected function valid(EntityInterface $entity): bool

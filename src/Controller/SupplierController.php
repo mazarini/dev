@@ -33,7 +33,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * @Route("/")
+ * @Route("/supplier")
  */
 class SupplierController extends AbstractCrudController
 {

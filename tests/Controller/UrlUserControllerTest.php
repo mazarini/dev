@@ -58,10 +58,10 @@ class UrlUserControllerTest extends WebTestCase
         yield ['/user', 'GET', 301];
         yield ['/user/', 'GET', 302];
         yield ['/user/page-0.html', 'GET', 404];
-        yield ['/user/page-1.html'];
+        yield ['/user/page-1.html', 'GET', 302];
         yield ['/user/page-2.html', 'GET', 302];
-        yield ['/user/new.html'];
-        yield ['/user/show-1.html', 'GET', 200];
-        yield ['/user/edit-1.html', 'GET', 200];
+        yield ['/user/new.html', 'GET', 302];
+        yield ['/user/show-1.html', 'GET', 302];
+        yield ['/user/edit-1.html', 'GET', 302];
     }
 }

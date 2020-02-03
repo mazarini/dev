@@ -55,13 +55,13 @@ class UrlSupplierControllerTest extends WebTestCase
      */
     public function getUrls(): \Traversable
     {
-        yield ['', 'GET', 302];
-        yield ['/', 'GET', 302];
-        yield ['/page-0.html', 'GET', 404];
-        yield ['/page-1.html'];
-        yield ['/page-2.html', 'GET', 302];
-        yield ['/new.html'];
-        yield ['/show-1.html', 'GET', 200];
-        yield ['/edit-1.html', 'GET', 200];
+        yield ['/supplier', 'GET', 301];
+        yield ['/supplier/', 'GET', 302];
+        yield ['/supplier/page-0.html', 'GET', 404];
+        yield ['/supplier/page-1.html'];
+        yield ['/supplier/page-2.html', 'GET', 302];
+        yield ['/supplier/new.html'];
+        yield ['/supplier/show-1.html', 'GET', 200];
+        yield ['/supplier/edit-1.html', 'GET', 200];
     }
 }
