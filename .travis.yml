@@ -31,27 +31,28 @@ jobs:
       env: INSTALL="install"
     - php: nightly
       env: OPTION="nightly"
-           INSTALL="install"
+           STABILITY="dev"
 #   symfony version
     - php: 7.2
-      env: symfony="4.4.*"
+      env: SYNFONY="4.4.*"
     - php: 7.2
-      env: symfony="5.0.*"
+      env: SYNFONY="5.0.*"
+      env: INSTALL="install"
 #   symfony dev version
     - php: 7.2
-      env: symfony="4.4.*"
+      env: SYNFONY="4.4.*"
            STABILITY="dev"
     - php: 7.2
-      env: symfony="5.0.*"
+      env: SYNFONY="5.0.*"
            STABILITY="dev"
     - php: 7.2
-      env: symfony="5.1.*"
+      env: SYNFONY="5.1.*"
            STABILITY="dev"
   allow_failures:
 #   PHP version dev version
     - php: nightly
       env: OPTION="nightly"
-           INSTALL="install"
+           STABILITY="dev"
 #   symfony dev version
     - php: 7.2
       env: symfony="4.4.*"
