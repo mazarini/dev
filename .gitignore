@@ -3,6 +3,7 @@
 /var/*
 !var/data
 /var/data/sqlite.db
+/var/data/prod.db
 ###< local ###
 
 ###> symfony/framework-bundle ###
