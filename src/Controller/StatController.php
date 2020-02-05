@@ -23,6 +23,7 @@ use App\Repository\DeliveryRepository;
 use Mazarini\ToolsBundle\Controller\AbstractController;
 use Mazarini\ToolsBundle\Data\Data;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -33,14 +34,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class StatController extends AbstractController
 {
     /**
-     * @Route("/{y}/{m}/{d}", name="stat_week")
+     * @Route("/", name="stat_week")
      */
-    public function week(DeliveryRepository $deliveryRepository, int $y = 0, int $m = 1, int $d = 1): Response
+    public function week(Request $request, DeliveryRepository $deliveryRepository): Response
     {
         $date = new \Datetime();
-        if ($y > 0) {
-            $date->setDate($y, $m, $d);
+        $askDate = $request->request->get('date');
+        dump($askDate);
+        if (null !== $askDate) {
+            $date = \DateTime::createFromFormat('d/m/Y', $askDate);
         }
+        if (false === $date) {
+            $date = new \Datetime();
+        }
+        dump($date);
         $move = $date->format('N');
         $dates[0] = new \Datetime();
         $dates[0]->setTimestamp($date->getTimestamp());
@@ -55,6 +62,9 @@ class StatController extends AbstractController
         $amounts = [];
         $deliveries = $deliveryRepository->findWeek($dates[0], $dates[7]);
         unset($dates[0]);
+        foreach ($dates as $date) {
+            $amounts['Sum for all suppliers'][$date->format('Ymd')] = 0;
+        }
         foreach ($deliveries as $delivery) {
             $name = $delivery->getSupplier()->getName();
             if (!isset($amounts[$name])) {
@@ -63,6 +73,7 @@ class StatController extends AbstractController
                 }
             }
             $amounts[$name][$delivery->getday()->format('Ymd')] += $delivery->getAmount();
+            $amounts['Sum for all suppliers'][$delivery->getday()->format('Ymd')] += $delivery->getAmount();
         }
 
         return $this->dataRender('stat/week.html.twig', [

@@ -8,6 +8,19 @@
 {% endblock title %}
 
 {% block content %}
+	<form method="post" action="">
+		<div class="form-group">
+			<div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+				<input type="text" name="date" value="{{ dates[1]|date('d/m/Y') }}" class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
+				<div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+					<div class="input-group-text">
+						<i class="fa fa-calendar"></i>
+					</div>
+				</div>
+				<button class="btn btn-primary" type="submit">Go!</button>
+			</div>
+		</div>
+	</form>
 	<table class="table table-bordered">
 		<thead>
 			<tr>
@@ -33,3 +46,12 @@
 		</tbody>
 	</table>
 {% endblock content %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(function () {
+$('#datetimepicker4').datetimepicker({format: 'L', locale: 'fr'});
+});
+	</script>
+{% endblock javascripts %}
