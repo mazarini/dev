@@ -22,11 +22,13 @@ namespace App\Controller;
 use App\Repository\DeliveryRepository;
 use Mazarini\ToolsBundle\Controller\AbstractController;
 use Mazarini\ToolsBundle\Data\Data;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/stat")
+ * @IsGranted("ROLE_USER")
  */
 class StatController extends AbstractController
 {

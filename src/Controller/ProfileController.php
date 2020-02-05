@@ -35,6 +35,7 @@ class ProfileController extends AbstractController
 {
     /**
      * @Route("/new", name="profile_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
