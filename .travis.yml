@@ -36,6 +36,7 @@ jobs:
 #   symfony version
     - php: 7.2
       env: SYMFONY="4.4.*"
+           SYMFONY_DEPRECATIONS_HELPER=999
     - php: 7.2
       env: SYMFONY="5.0.*"
            INSTALL="install"
