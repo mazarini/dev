@@ -40,14 +40,12 @@ class StatController extends AbstractController
     {
         $date = new \Datetime();
         $askDate = $request->request->get('date');
-        dump($askDate);
         if (null !== $askDate) {
             $date = \DateTime::createFromFormat('d/m/Y', $askDate);
         }
         if (false === $date) {
             $date = new \Datetime();
         }
-        dump($date);
         $move = $date->format('N');
         $dates[0] = new \Datetime();
         $dates[0]->setTimestamp($date->getTimestamp());
