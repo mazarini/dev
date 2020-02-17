@@ -1,0 +1,31 @@
+{% block first_bar_container %}
+	<div class="list-group">
+		<a href="{{ path('homepage') }}" class="list-group-item list-group-item-action">
+			Home
+		</a>
+		{% if app.user %}
+			<a href="{{ path('profile_show') }}" class="list-group-item list-group-item-action">
+				{{ app.user.username }}
+			</a>
+			<a href="{{ path('security_logout') }}" class=" list-group-item list-group-item-action">
+				Logout
+			</a>
+			<a href="{{ path('supplier_index') }}" class="list-group-item list-group-item-action">
+				Supplier
+			</a>
+			<a href="{{ path('stat_week') }}" class="list-group-item list-group-item-action">
+				Weekly stat
+			</a>
+
+		{% else %}
+			<a href="{{ path('security_login') }}" class="list-group-item list-group-item-action">
+				Login
+			</a>
+		{% endif %}
+		{% if is_granted('ROLE_ADMIN') %}
+			<a href="{{ path('user_index') }}" class="list-group-item list-group-item-action">
+				User
+			</a>
+		{% endif %}
+	</div>
+{% endblock first_bar_container %}
