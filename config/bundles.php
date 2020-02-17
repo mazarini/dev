@@ -20,4 +20,5 @@ return [
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
     Mazarini\CrudBundle\MazariniCrudBundle::class => ['all' => true],
     Mazarini\PaginationBundle\MazariniPaginationBundle::class => ['all' => true],
+    Mazarini\UserBundle\MazariniUserBundle::class => ['all' => true],
 ];

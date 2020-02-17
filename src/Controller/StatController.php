@@ -76,7 +76,7 @@ class StatController extends AbstractController
             $amounts['Sum for all suppliers'][$delivery->getday()->format('Ymd')] += $delivery->getAmount();
         }
 
-        return $this->dataRender('stat/week.html.twig', [
+        return $this->dataRender('week.html.twig', [
             'dates' => $dates,
             'amounts' => $amounts,
         ]);

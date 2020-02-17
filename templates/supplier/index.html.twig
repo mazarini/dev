@@ -22,7 +22,7 @@
 						{% if data.links['edit-' ~ entity.id].url != '#' %}
 							{% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': data.links['edit-' ~ entity.id]} %}
 						{% endif %}
-						{% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': data.links['delivery-' ~ entity.id]} %}
+						{% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': data.links['delivery_index-' ~ entity.id]} %}
 					</td>
 				{% endif %}
 			</tr>

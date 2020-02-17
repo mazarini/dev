@@ -12,6 +12,7 @@
         "mazarini/crud-bundle": "^1.0dev",
         "mazarini/pagination-bundle": "^1.0@dev",
         "mazarini/tools-bundle": "^1.0dev",
+        "mazarini/user-bundle": "^1.0@dev",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/apache-pack": "^1.0",
         "symfony/dotenv": "^4.4|^5.0",
@@ -27,7 +28,7 @@
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.2",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
-        "mazarini/package": "^1.1",
+        "mazarini/package": "^1.0@dev",
         "mazarini/test-bundle": "^1.0@dev",
         "symfony/debug-pack": "^1.0",
         "symfony/maker-bundle": "^1.14",

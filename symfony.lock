@@ -144,6 +144,9 @@
     "mazarini/tools-bundle": {
         "version": "1.0.x-dev"
     },
+    "mazarini/user-bundle": {
+        "version": "1.0.x-dev"
+    },
     "monolog/monolog": {
         "version": "2.0.2"
     },

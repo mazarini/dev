@@ -19,78 +19,21 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\UserType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Mazarini\UserBundle\Controller\ProfileController as BaseController;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/profile")
  */
-class ProfileController extends AbstractController
+class ProfileController extends BaseController
 {
-    /**
-     * @Route("/new", name="profile_new", methods={"GET","POST"})
-     * @IsGranted("ROLE_ADMIN")
+    /*
+     public function __construct(RequestStack $requestStack, UrlGeneratorInterface $router)
+     {
+         parent::__construct($requestStack, $router);
+         $this->twigFolder = '@MazariniUser/profile/';
+     }
      */
-    public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($encoder->encodePassword($user, $form->get('password')->getData()));
-            if ($user->getRoles() === []) {
-                $user->setRoles(['ROLE_USER']);
-            }
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('profile_show');
-        }
-
-        return $this->render('profile/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/show", name="profile_show", methods={"GET"})
-     * @IsGranted("ROLE_USER")
-     */
-    public function show(): Response
-    {
-        return $this->render('profile/show.html.twig', [
-            'user' => $this->getUser(),
-        ]);
-    }
-
-    /**
-     * @Route("/edit", name="profile_edit", methods={"GET","POST"})
-     * @IsGranted("ROLE_USER")
-     */
-    public function edit(Request $request): Response
-    {
-        $user = $this->getUser();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('profile_show');
-        }
-
-        return $this->render('profile/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
 }

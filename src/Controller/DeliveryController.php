@@ -26,13 +26,10 @@ use App\Repository\DeliveryRepository;
 use Mazarini\CrudBundle\Controller\AbstractCrudController;
 use Mazarini\ToolsBundle\Controller\AbstractController;
 use Mazarini\ToolsBundle\Data\Data;
-use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
   * @Route("/delivery")
@@ -44,12 +41,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
       * @var Supplier
       */
      protected $supplier;
-
-     public function __construct(RequestStack $requestStack, UrlGeneratorInterface $router)
-     {
-         parent::__construct($requestStack, $router, 'delivery');
-         $this->twigFolder = 'delivery/';
-     }
 
      /**
       * @Route("/", name="delivery_index_bis", methods={"GET"})
@@ -75,13 +66,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
          $this->parameters['supplier'] = $this->supplier = $supplier;
          $DeliveryRepository->setSupplier($supplier);
 
-         $this->data->setPagination($DeliveryRepository->getPage($page));
-
-         if ($page === $this->data->getPagination()->getCurrentPage()) {
-             return $this->dataRender('index.html.twig');
-         }
-
-         return $this->redirect($this->data->generateUrl('_page', ['id' => $supplier->getId(), 'page' => $this->data->getPagination()->getCurrentPage()]));
+         return $this->PageAction($DeliveryRepository, $page);
      }
 
      /**
@@ -128,19 +113,14 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
          return $this->deleteAction($request, $entity);
      }
 
-     protected function valid(EntityInterface $entity): bool
+     /**
+      * getPageParameters.
+      *
+      * @return array<string,string>
+      */
+     protected function getPageParameters(): array
      {
-         return true;
-     }
-
-     protected function initUrl(Data $data): AbstractController
-     {
-         $this->listUrl($data, ['show', 'edit']);
-         $this->paginationUrl($data);
-         $this->crudUrl($data);
-         $data->addLink('new', $data->generateUrl('_new', ['id' => $this->supplier->getId(), 'page' => 1]), 'Create');
-
-         return $this;
+         return ['id' => (string) $this->supplier->getId()];
      }
 
      protected function PaginationUrl(Data $data): AbstractController

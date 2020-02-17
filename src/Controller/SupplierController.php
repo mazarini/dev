@@ -23,15 +23,10 @@ use App\Entity\Supplier;
 use App\Form\SupplierType;
 use App\Repository\SupplierRepository;
 use Mazarini\CrudBundle\Controller\AbstractCrudController;
-use Mazarini\ToolsBundle\Controller\AbstractController;
-use Mazarini\ToolsBundle\Data\Data;
-use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/supplier")
@@ -39,12 +34,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class SupplierController extends AbstractCrudController
 {
-    public function __construct(RequestStack $requestStack, UrlGeneratorInterface $router)
-    {
-        parent::__construct($requestStack, $router, 'supplier');
-        $this->twigFolder = 'supplier/';
-    }
-
     /**
      * @Route("/", name="supplier_index", methods={"GET"})
      */
@@ -95,29 +84,13 @@ class SupplierController extends AbstractCrudController
         return $this->deleteAction($request, $entity);
     }
 
-    protected function valid(EntityInterface $entity): bool
-    {
-        return true;
-    }
-
     /**
-     * listUrl.
+     * getListAction.
      *
-     * @param array<int,string> $actions
+     * @return array<string,string>
      */
-    protected function listUrl(Data $data, array $actions): AbstractController
+    protected function getListAction(): array
     {
-        if ($data->isSetEntities()) {
-            foreach ($data->getEntities() as $entity) {
-                $id = $entity->getId();
-                $parameters = ['id' => $id];
-                foreach ($actions as $action) {
-                    $data->addLink($action.'-'.$id, $data->generateUrl('_'.$action, $parameters), $action);
-                }
-                $data->addLink('delivery-'.$id, $data->generateUrl('delivery_page', ['id' => $id, 'page' => 1]), 'Delivery');
-            }
-        }
-
-        return $this;
+        return ['_edit' => 'Edit', '_show' => 'Show', 'delivery_index' => 'Delivery'];
     }
 }

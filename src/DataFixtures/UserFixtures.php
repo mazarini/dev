@@ -19,39 +19,10 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Mazarini\UserBundle\DataFixtures\UserFixturesAbstract;
 
-class UserFixtures extends Fixture
+class UserFixtures extends UserFixturesAbstract
 {
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
-
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
-    {
-        $this->passwordEncoder = $passwordEncoder;
-    }
-
-    public function load(ObjectManager $manager): void
-    {
-        foreach ($this->getData() as [$username, $roles]) {
-            $user = new User();
-            $user
-                ->setUsername($username)
-                ->setPassword($this->passwordEncoder->encodePassword($user, $username))
-                ->setEmail($username.'@example.com')
-                ->setRoles($roles)
-            ;
-            $manager->persist($user);
-        }
-
-        $manager->flush();
-    }
-
     /**
      * getData.
      *
@@ -61,8 +32,8 @@ class UserFixtures extends Fixture
     {
         return [
 //          [$name, $roles]
+            ['user', ['ROLE_USER']],
             ['admin', ['ROLE_ADMIN']],
-            ['smith', ['ROLE_USER']],
             ['doe', ['ROLE_USER']],
         ];
     }

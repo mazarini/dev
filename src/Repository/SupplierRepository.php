@@ -30,6 +30,11 @@ use Mazarini\PaginationBundle\Repository\AbstractRepository;
  */
 class SupplierRepository extends AbstractRepository
 {
+    /**
+     * @var string
+     */
+    protected $orderColumn = 'e.name';
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Supplier::class);
