@@ -1,10 +1,8 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}
-	Week from
-	{{ dates[1]|date('d/m/Y') }}
-	to
-	{{ dates[7]|date('d/m/Y') }}
+	Semaine du
+	{{ dates[1]|date('d F Y') }}
 {% endblock title %}
 
 {% block content %}
@@ -17,7 +15,7 @@
 						<i class="fa fa-calendar"></i>
 					</div>
 				</div>
-				<button class="btn btn-primary" type="submit">Go!</button>
+				<button class="btn btn-primary" type="submit">Calculer</button>
 			</div>
 		</div>
 	</form>

@@ -24,8 +24,6 @@ use App\Entity\Supplier;
 use App\Form\DeliveryType;
 use App\Repository\DeliveryRepository;
 use Mazarini\CrudBundle\Controller\AbstractCrudController;
-use Mazarini\ToolsBundle\Controller\AbstractController;
-use Mazarini\ToolsBundle\Data\Data;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -121,38 +119,5 @@ use Symfony\Component\Routing\Annotation\Route;
      protected function getPageParameters(): array
      {
          return ['id' => (string) $this->supplier->getId()];
-     }
-
-     protected function PaginationUrl(Data $data): AbstractController
-     {
-         if ($data->isSetEntities()) {
-             $pagination = $data->getPagination();
-             $last = $pagination->getLastPage();
-             if ($pagination->hasPreviousPage()) {
-                 $navUrl['first'] = $data->generateUrl('_page', ['id' => $this->supplier->getId(), 'page' => 1]);
-                 $navUrl['previous'] = $data->generateUrl('_page', ['id' => $this->supplier->getId(), 'page' => $pagination->getCurrentPage() - 1]);
-             } else {
-                 $navUrl['first'] = '#';
-                 $navUrl['previous'] = '#';
-             }
-             if ($pagination->hasNextPage()) {
-                 $navUrl['next'] = $data->generateUrl('_page', ['id' => $this->supplier->getId(), 'page' => $pagination->getCurrentPage() + 1]);
-                 $navUrl['last'] = $data->generateUrl('_page', ['id' => $this->supplier->getId(), 'page' => $last]);
-             } else {
-                 $navUrl['next'] = '#';
-                 $navUrl['last'] = '#';
-             }
-             $data->addLink('first', $navUrl['first'], '1');
-             $data->addLink('previous', $navUrl['previous']);
-             $data->addLink('next', $navUrl['next']);
-             $data->addLink('last', $navUrl['last'], (string) $last);
-             for ($i = 1; $i <= $last; ++$i) {
-                 $data->addLink('page-'.$i, $data->generateUrl('_page', ['id' => $this->supplier->getId(), 'page' => $i]), (string) $i);
-             }
-         } else {
-             $data->addLink('index', $data->generateUrl('_page', ['id' => $this->supplier->getId(), 'page' => 1]), 'List');
-         }
-
-         return $this;
      }
  }

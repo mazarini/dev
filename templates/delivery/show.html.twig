@@ -1,21 +1,17 @@
 {% extends '@MazariniPagination/_view.html.twig' %}
 
 {% block title %}
-	Delivery of
+	Livraison de
 	{{ supplier.name }}
 {% endblock title %}
 
 {% block view_content %}
 	<tr>
-		<th>date</th>
+		<th>Date de livraison :</th>
 		<td>{{ data.entity.day|date("d/m/Y") }}</td>
 	</tr>
 	<tr>
-		<th>name</th>
-		<td>{{ data.entity.supplier.name }}</td>
-	</tr>
-	<tr>
-		<th>amount</th>
+		<th>Montant de la facture :</th>
 		<td>{{ data.entity.amount }}</td>
 	</tr>
 {% endblock view_content %}

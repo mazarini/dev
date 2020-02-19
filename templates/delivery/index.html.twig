@@ -1,24 +1,21 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}
-	Deliveries of
-	{{ supplier.name }}
+	Livraisons de "{{ supplier.name }}"
 {% endblock %}
 
 {% block content %}
 
-	{% embed '@MazariniPagination/_list.html.twig' with {'span': 3} %}
+	{% embed '@MazariniPagination/_list.html.twig' with {'span': 2} %}
 
 		{% block page_header %}
-			<th>date</th>
-			<th>name</th>
-			<th>montant</th>
-			<th>action</th>
+			<th>Dates livraison</th>
+			<th>Montants</th>
+			<th>Actions</th>
 		{% endblock page_header %}
 
 		{% block page_row %}
 			<td>{{ entity.day|date("d/m/Y") }}</td>
-			<td>{{ entity.supplier.name }}</td>
 			<td>{{ entity.amount }}</td>
 		{% endblock page_row %}
 

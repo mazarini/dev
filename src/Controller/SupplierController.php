@@ -91,6 +91,16 @@ class SupplierController extends AbstractCrudController
      */
     protected function getListAction(): array
     {
-        return ['_edit' => 'Edit', '_show' => 'Show', 'delivery_index' => 'Delivery'];
+        return ['_edit' => 'Modifier', '_show' => 'Afficher', 'delivery_index' => 'Livraisons'];
+    }
+
+    /**
+     * getCrudAction.
+     *
+     * @return array<string,string>
+     */
+    protected function getCrudAction(): array
+    {
+        return ['_edit' => 'Modifier', '_show' => 'Afficher', '_delete' => 'Supprimer'];
     }
 }

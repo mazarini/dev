@@ -41,10 +41,10 @@ class RepeatedPasswordType extends AbstractType
                     ]),
                 ],
                 'first_options' => [
-                    'label' => 'Password',
+                    'label' => 'Mot de passe :',
                 ],
                 'second_options' => [
-                    'label' => 'Verify',
+                    'label' => 'Vérification',
                 ],
         ]);
     }
