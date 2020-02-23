@@ -46,6 +46,19 @@ class StatController extends AbstractController
         if (false === $date) {
             $date = new \Datetime();
         }
+        [$dates[1],$amounts[1]] = $this->getWeek($deliveryRepository, $date);
+        [$dates[2],$amounts[2]] = $this->getWeek($deliveryRepository, $date->sub(new \DateInterval('P7D')));
+        [$dates[3],$amounts[3]] = $this->getWeek($deliveryRepository, $date->sub(new \DateInterval('P21D')));
+        [$dates[4],$amounts[4]] = $this->getWeek($deliveryRepository, $date->sub(new \DateInterval('P337D')));
+
+        return $this->dataRender('week.html.twig', [
+            'dates' => $dates,
+            'amounts' => $amounts,
+        ]);
+    }
+
+    protected function getWeek(DeliveryRepository $deliveryRepository, \Datetime $date): array
+    {
         $move = $date->format('N');
         $dates[0] = new \Datetime();
         $dates[0]->setTimestamp($date->getTimestamp());
@@ -61,23 +74,24 @@ class StatController extends AbstractController
         $deliveries = $deliveryRepository->findWeek($dates[0], $dates[7]);
         unset($dates[0]);
         foreach ($dates as $date) {
-            $amounts['Sum for all suppliers'][$date->format('Ymd')] = 0;
+            $amounts['Cumul fournisseurs'][$date->format('Ymd')] = 0;
         }
+        $amounts['Cumul fournisseurs']['Total'] = 0;
         foreach ($deliveries as $delivery) {
             $name = $delivery->getSupplier()->getName();
             if (!isset($amounts[$name])) {
                 foreach ($dates as $date) {
                     $amounts[$name][$date->format('Ymd')] = 0;
                 }
+                $amounts[$name]['Total'] = 0;
             }
             $amounts[$name][$delivery->getday()->format('Ymd')] += $delivery->getAmount();
-            $amounts['Sum for all suppliers'][$delivery->getday()->format('Ymd')] += $delivery->getAmount();
+            $amounts['Cumul fournisseurs'][$delivery->getday()->format('Ymd')] += $delivery->getAmount();
+            $amounts[$name]['Total'] += $delivery->getAmount();
+            $amounts['Cumul fournisseurs']['Total'] += $delivery->getAmount();
         }
 
-        return $this->dataRender('week.html.twig', [
-            'dates' => $dates,
-            'amounts' => $amounts,
-        ]);
+        return[$dates, $amounts];
     }
 
     protected function initUrl(Data $data): AbstractController

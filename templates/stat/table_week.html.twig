@@ -1,0 +1,25 @@
+<table class="table table-bordered">
+	<thead>
+    	<tr>
+			<th></th>
+			{% for date in dates %}
+				<th>
+					{{ date|date('D d') }}
+				</th>
+			{% endfor %}
+			<th>Total</th>
+	</tr>
+	</thead>
+	<tbody>
+		{% for name,deliveries in amounts %}
+			<tr>
+				<td>{{ name }}</td>
+				{% for amount in deliveries %}
+					<td>
+						{{ amount }}
+					</td>
+				{% endfor %}
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
