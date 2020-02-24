@@ -49,7 +49,7 @@ class StatController extends AbstractController
         [$dates[1],$amounts[1]] = $this->getWeek($deliveryRepository, $date);
         [$dates[2],$amounts[2]] = $this->getWeek($deliveryRepository, $date->sub(new \DateInterval('P7D')));
         [$dates[3],$amounts[3]] = $this->getWeek($deliveryRepository, $date->sub(new \DateInterval('P21D')));
-        [$dates[4],$amounts[4]] = $this->getWeek($deliveryRepository, $date->sub(new \DateInterval('P337D')));
+        [$dates[4],$amounts[4]] = $this->getWeek($deliveryRepository, $date->sub(new \DateInterval('P336D')));
 
         return $this->dataRender('week.html.twig', [
             'dates' => $dates,
@@ -57,6 +57,11 @@ class StatController extends AbstractController
         ]);
     }
 
+    /**
+     * getWeek.
+     *
+     * @return array<int,array>
+     */
     protected function getWeek(DeliveryRepository $deliveryRepository, \Datetime $date): array
     {
         $move = $date->format('N');
