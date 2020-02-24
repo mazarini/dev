@@ -1,6 +1,7 @@
-{% use 'base/stylesheets.html.twig' %}
-{% use 'base/javascripts.html.twig' %}
+{% use 'part/stylesheets.html.twig' %}
+{% use 'part/navbar.html.twig' %}
 {% use '@MazariniBootstrap/part/messages.html.twig' %}
+{% use 'part/javascripts.html.twig' %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,14 +14,15 @@
         {% endblock stylesheets %}
     </head>
     <body>
-        {% block static %}{% endblock static %}
+        {% block static %}
+            {% block navbar %}
+                {{ parent() }}
+            {% endblock navbar %}
+        {% endblock static %}
         <div class="container">
             {% block body %}
                 <div class="row">
-                    <div class="col-2">
-                        {% block first_bar_container %}{% endblock first_bar_container %}
-                    </div>
-                    <div class="col-10">
+                    <div class="col-12">
                         {% block messages %}
                             {{ parent() }}
                         {% endblock messages %}
