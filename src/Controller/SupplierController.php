@@ -81,7 +81,26 @@ class SupplierController extends AbstractCrudController
      */
     public function delete(Request $request, Supplier $entity): Response
     {
-        return $this->deleteAction($request, $entity);
+        if (!$this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
+            $this->addFlash('warning', 'Fournisseurs non supprimé (token invalide)');
+
+            return $this->redirect($this->data->generateUrl('_show', ['id' => $entity->getId()]));
+        }
+        $count = \count($entity->getDeliveries());
+        $entityManager = $this->getDoctrine()->getManager();
+        foreach ($entity->getDeliveries() as $delivery) {
+            $entityManager->remove($delivery);
+        }
+        $entityManager->remove($entity);
+        $entityManager->flush();
+
+        if ($count > 0) {
+            $this->addFlash('success', sprintf('Fournisseur %s supprimé et %d livraisons', $entity->getName(), $count));
+        } else {
+            $this->addFlash('success', 'Fournisseur supprimé');
+        }
+
+        return $this->redirect($this->data->generateUrl('_index'));
     }
 
     /**
