@@ -20,19 +20,33 @@
 namespace App\Controller;
 
 use Mazarini\UserBundle\Controller\SecurityController as BaseController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * @Route("/")
  */
 class SecurityController extends BaseController
 {
-    /*
-     *
-     * public function __construct(RequestStack $requestStack, UrlGeneratorInterface $router)
-     * {
-     *     parent::__construct($requestStack, $router, 'profile');
-     *     $this->twigFolder = '@MazariniUser/security/';
-     * }
+    /**
+     * @Route("/login", name="security_login")
      */
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        if (null !== $error) {
+            $this->addFlash('danger', $error->getMessageKey());
+        }
+        // last username entered by the user
+        $lastLogin = $authenticationUtils->getLastUsername();
+
+        return $this->dataRender('login.html.twig', ['last_login' => $lastLogin]);
+    }
+
+    protected function getTwigFolder(): string
+    {
+        return 'security/';
+    }
 }
