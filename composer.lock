@@ -1521,12 +1521,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mazarini/user-bundle.git",
-                "reference": "53fbb3083245d9447658c4a4596432031d01244f"
+                "reference": "e0bd71f701669cc14a0c6564640f66c1658bb6ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mazarini/user-bundle/zipball/53fbb3083245d9447658c4a4596432031d01244f",
-                "reference": "53fbb3083245d9447658c4a4596432031d01244f",
+                "url": "https://api.github.com/repos/mazarini/user-bundle/zipball/e0bd71f701669cc14a0c6564640f66c1658bb6ad",
+                "reference": "e0bd71f701669cc14a0c6564640f66c1658bb6ad",
                 "shasum": ""
             },
             "require": {
@@ -1581,7 +1581,7 @@
                 "GPL-3.0-or-later"
             ],
             "description": "Minimal bundle to manage user and control access",
-            "time": "2020-02-20T19:35:30+00:00"
+            "time": "2020-02-25T07:27:44+00:00"
         },
         {
             "name": "ocramius/package-versions",
