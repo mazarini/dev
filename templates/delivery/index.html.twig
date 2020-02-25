@@ -16,7 +16,7 @@
 
 		{% block page_row %}
 			<td>{{ entity.day|date("d/m/Y") }}</td>
-			<td>{{ entity.amount }}</td>
+			<td>{{ (entity.amount / 100)|format_currency('CHF', {}) }}</td>
 		{% endblock page_row %}
 
 	{% endembed %}

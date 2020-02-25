@@ -16,7 +16,7 @@
 				<td>{{ name }}</td>
 				{% for amount in deliveries %}
 					<td>
-						{{ amount }}
+						{{ (amount / 100)|format_currency('CHF', {}) }}
 					</td>
 				{% endfor %}
 			</tr>

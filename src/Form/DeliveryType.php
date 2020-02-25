@@ -22,6 +22,7 @@ namespace App\Form;
 use App\Entity\Delivery;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -42,7 +43,15 @@ class DeliveryType extends AbstractType
                     'format' => 'dd/MM/yyyy',
                 ]
             )
-            ->add('amount', null, ['label' => 'Montant de la facture :'])
+            ->add(
+                'amount',
+                MoneyType::class,
+                    [
+                        'label' => 'Montant de la facture :',
+                        'divisor' => 100,
+                        'currency' => 'CHF',
+                    ]
+            )
         ;
     }
 

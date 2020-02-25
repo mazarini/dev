@@ -12,6 +12,6 @@
 	</tr>
 	<tr>
 		<th>Montant de la facture :</th>
-		<td>{{ data.entity.amount }}</td>
+		<td>{{ (data.entity.amount / 100)|format_currency('CHF', {}) }}</td>
 	</tr>
 {% endblock view_content %}
