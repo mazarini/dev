@@ -21,6 +21,8 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeControllerTest extends WebTestCase
 {
@@ -37,15 +39,24 @@ class HomeControllerTest extends WebTestCase
     /**
      * @dataProvider getUrls
      */
-    public function testUrls(string $url, string $method = 'GET', int $response = 200): void
+    public function testUrls(string $url, string $target = '/profile/show.html', int $code = Response::HTTP_MOVED_PERMANENTLY): void
     {
-        $this->client->request($method, $url);
+        $this->client->request('GET', $url);
 
+        $response = $this->client->getResponse();
+
+        $real = $response->getStatusCode();
         $this->assertSame(
-            $response,
-            $this->client->getResponse()->getStatusCode(),
-            sprintf('The %s public URL loads correctly.', $url)
+            $code, $real,
+            sprintf('The "%s" public URL redirect with code "%d" (real %d).', $url, $code, $real)
         );
+        if ($response instanceof RedirectResponse) {
+            $real = $response->getTargetUrl();
+            $this->assertSame(
+                $target, $real,
+                sprintf('The "%s" public URL redirect to "%s" (real %d).', $url, $target, $real)
+            );
+        }
     }
 
     /**
@@ -55,7 +66,7 @@ class HomeControllerTest extends WebTestCase
      */
     public function getUrls(): \Traversable
     {
-        yield ['', 'GET', 302];
-        yield ['/', 'GET', 302];
+        yield [''];
+        yield ['/'];
     }
 }

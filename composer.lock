@@ -1447,12 +1447,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mazarini/tools-bundle.git",
-                "reference": "e8547b1e13f986480b35c4f416549e23b50d978e"
+                "reference": "1609a24c6c21ed58595fe467119dde3f789b5109"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mazarini/tools-bundle/zipball/e8547b1e13f986480b35c4f416549e23b50d978e",
-                "reference": "e8547b1e13f986480b35c4f416549e23b50d978e",
+                "url": "https://api.github.com/repos/mazarini/tools-bundle/zipball/1609a24c6c21ed58595fe467119dde3f789b5109",
+                "reference": "1609a24c6c21ed58595fe467119dde3f789b5109",
                 "shasum": ""
             },
             "require": {
@@ -1473,7 +1473,6 @@
             "require-dev": {
                 "doctrine/doctrine-bundle": "^2.0",
                 "doctrine/orm": "^2.7",
-                "laminas/laminas-code": "^3.4",
                 "mazarini/bootstrap-bundle": "^0.9|^1.0dev",
                 "mazarini/package": "^1.1",
                 "mazarini/test-bundle": "^0.9|^1.0dev",
@@ -1513,7 +1512,7 @@
                 "symfony",
                 "toolset"
             ],
-            "time": "2020-02-23T10:46:48+00:00"
+            "time": "2020-02-28T14:28:37+00:00"
         },
         {
             "name": "mazarini/user-bundle",

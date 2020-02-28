@@ -25,3 +25,11 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    mazarini.tools.RequestControllerSubscriber:
+        autoconfigure: true
+        class: Mazarini\ToolsBundle\EventSubscriber\RequestControllerSubscriber
+
+    mazarini_tools.homepage_subscrider:
+        class: Mazarini\ToolsBundle\EventSubscriber\HomepageSubscriber
+        arguments:
+            $homepage: '/profile/show.html'
