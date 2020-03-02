@@ -1,50 +1,52 @@
 {% block navbar %}
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/"><img id="logo" src="/img/logo/logo.png"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class='container'>
+            <a class="navbar-brand" href="/"><img id="logo" src="/img/logo/logo.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                {% if app.user %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('supplier_index') }}">Fournisseurs</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Statistiques
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ path('stat_week') }}">Hebdomadaire</a>
-                        </div>
-                    </li>
-                {% endif %}
-            </ul>
-            <ul class="navbar-nav ml-md-auto d-none d-md-flex">
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('user_index') }}" tabindex="-1" aria-disabled="true">Utilisateurs</a>
-                    </li>
-                {% endif %}
-                {% if app.user %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Bonjour
-                            {{ app.user.username }}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ path('profile_show') }}">Profile</a>
-                            <a class="dropdown-item" href="{{ path('profile_change_password') }}">Mot de passe</a>
-                            <a class="dropdown-item" href="{{ path('security_logout') }}">Déconnexion</a>
-                        </div>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('security_login') }}" tabindex="-1" aria-disabled="true">Connexion</a>
-                    </li>
-                {% endif %}
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('supplier_index') }}">Fournisseurs</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Statistiques
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('stat_week') }}">Hebdomadaire</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav ml-md-auto d-none d-md-flex">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('user_index') }}" tabindex="-1" aria-disabled="true">Utilisateurs</a>
+                        </li>
+                    {% endif %}
+                    {% if app.user %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Bonjour
+                                {{ app.user.username }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('profile_show') }}">Profile</a>
+                                <a class="dropdown-item" href="{{ path('profile_change_password') }}">Mot de passe</a>
+                                <a class="dropdown-item" href="{{ path('security_logout') }}">Déconnexion</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('security_login') }}" tabindex="-1" aria-disabled="true">Connexion</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
     </nav>
 {% endblock navbar %}
