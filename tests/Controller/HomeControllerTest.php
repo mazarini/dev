@@ -39,7 +39,7 @@ class HomeControllerTest extends WebTestCase
     /**
      * @dataProvider getUrls
      */
-    public function testUrls(string $url, string $target = '/profile/show.html', int $code = Response::HTTP_MOVED_PERMANENTLY): void
+    public function testUrls(string $url, string $target = '/supplier/page-1.html', int $code = Response::HTTP_MOVED_PERMANENTLY): void
     {
         $this->client->request('GET', $url);
 

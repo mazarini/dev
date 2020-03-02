@@ -32,4 +32,4 @@ services:
     mazarini_tools.homepage_subscrider:
         class: Mazarini\ToolsBundle\EventSubscriber\HomepageSubscriber
         arguments:
-            $homepage: '/profile/show.html'
+            $homepage: '/supplier/page-1.html'

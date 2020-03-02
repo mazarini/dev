@@ -31,7 +31,7 @@ security:
             logout:
                 path: security_logout
                 # where to redirect after logout
-                target: homepage
+                target: /
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -44,5 +44,6 @@ security:
     access_denied_url: /login
 
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin/user, roles: ROLE_ADMIN }
+        - { path: ^/profile/new.html$, roles: ROLE_ADMIN }
+        - { path: ^/profile, roles: ROLE_USER }
