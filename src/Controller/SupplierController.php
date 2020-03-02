@@ -110,7 +110,7 @@ class SupplierController extends CrudControllerAbstract
      */
     protected function getListAction(): array
     {
-        return ['_edit' => 'Modifier', '_show' => 'Afficher', 'delivery_index' => 'Livraisons'];
+        return ['_show' => 'Afficher', 'delivery_index' => 'Livraisons'];
     }
 
     /**

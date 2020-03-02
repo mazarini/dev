@@ -89,4 +89,14 @@ class Supplier implements EntityInterface
 
         return $this;
     }
+
+    public function getAmount(): int
+    {
+        $amount = 0;
+        foreach ($this->deliveries as $delivery) {
+            $amount += $delivery->getAmount();
+        }
+
+        return $amount;
+    }
 }
