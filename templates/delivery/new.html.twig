@@ -1,6 +1,15 @@
-{% extends '@MazariniCrud//_form.html.twig' %}
+{% extends 'layout.html.twig' %}
+
+{% block head_title %}
+    {{ supplier.name }}
+{% endblock head_title %}
 
 {% block title %}
-	Nouvelle livraison de
-	"{{ supplier.name }}"
+    Nouvelle livraison de "{{ supplier.name }}"
 {% endblock %}
+
+{% block content %}
+
+    {% embed '@MazariniBootstrap/crud/_form.html.twig' with {'data': data } %}{% endembed %}
+
+{% endblock content %}

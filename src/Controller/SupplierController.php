@@ -22,7 +22,7 @@ namespace App\Controller;
 use App\Entity\Supplier;
 use App\Form\SupplierType;
 use App\Repository\SupplierRepository;
-use Mazarini\CrudBundle\Controller\AbstractCrudController;
+use Mazarini\CrudBundle\Controller\CrudControllerAbstract;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +32,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route("/supplier")
  * @IsGranted("ROLE_USER")
  */
-class SupplierController extends AbstractCrudController
+class SupplierController extends CrudControllerAbstract
 {
     /**
      * @Route("/", name="supplier_index", methods={"GET"})

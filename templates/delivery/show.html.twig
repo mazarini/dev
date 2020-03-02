@@ -1,17 +1,49 @@
-{% extends '@MazariniPagination/_view.html.twig' %}
+{% extends 'layout.html.twig' %}
+
+{% block head_title %}
+    {{ supplier.name }}
+{% endblock head_title %}
 
 {% block title %}
-	Livraison de
-	{{ supplier.name }}
+    Livraison de
+    {{ supplier.name }}
 {% endblock title %}
 
-{% block view_content %}
-	<tr>
-		<th>Date de livraison :</th>
-		<td>{{ data.entity.day|date("d/m/Y") }}</td>
-	</tr>
-	<tr>
-		<th>Montant de la facture :</th>
-		<td>{{ (data.entity.amount / 100)|format_currency('CHF', {}) }}</td>
-	</tr>
-{% endblock view_content %}
+{% block view_content %}{% endblock view_content %}
+
+
+{% block content %}
+
+    {% embed '@MazariniBootstrap/crud/_view.html.twig' with {'data': data } %}
+
+        {% block content %}
+            <tr>
+                <th>Date de livraison :</th>
+                <td>{{ data.entity.day|date("d/m/Y") }}</td>
+            </tr>
+            <tr>
+                <th>Montant de la facture :</th>
+                <td>{{ (data.entity.amount / 100)|format_currency('CHF', {}) }}</td>
+            </tr>
+        {% endblock content %}
+
+    {% endembed %}
+
+{% endblock content %}
+
+{% block modal %}
+
+    {% embed '@MazariniBootstrap/crud/_delete_form.html.twig' with {'data': data, 'modal_id': 'modalDeleteId'} %}
+
+        {% block content_confirm %}
+            <p>
+                Etes vous sur de supprimer la livraison
+                {{ data.entity.day|date("d/m/Y") }}
+                de
+                {{ supplier.name }}&nbsp;?
+            </p>
+        {% endblock content_confirm %}
+
+    {% endembed %}
+
+{% endblock modal %}

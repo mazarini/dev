@@ -1,24 +1,28 @@
 {% extends 'layout.html.twig' %}
 
+{% block head_title %}
+    {{ supplier.name }}"
+{% endblock head_title %}
+
 {% block title %}
-	Livraisons de "{{ supplier.name }}"
-{% endblock %}
+    Livraisons de "{{ supplier.name }}"
+{% endblock title %}
 
 {% block content %}
 
-	{% embed '@MazariniPagination/_list.html.twig' with {'span': 2} %}
+    {% embed '@MazariniBootstrap/crud/_index.html.twig' with {'span': 2} %}
 
-		{% block page_header %}
-			<th>Dates livraison</th>
-			<th>Montants</th>
-			<th>Actions</th>
-		{% endblock page_header %}
+        {% block page_header %}
+            <th>Dates livraison</th>
+            <th>Montants</th>
+            <th>Actions</th>
+        {% endblock page_header %}
 
-		{% block page_row %}
-			<td>{{ entity.day|date("d/m/Y") }}</td>
-			<td>{{ (entity.amount / 100)|format_currency('CHF', {}) }}</td>
-		{% endblock page_row %}
+        {% block page_row %}
+            <td>{{ entity.day|date("d/m/Y") }}</td>
+            <td>{{ (entity.amount / 100)|format_currency('CHF', {}) }}</td>
+        {% endblock page_row %}
 
-	{% endembed %}
+    {% endembed %}
 
 {% endblock content %}

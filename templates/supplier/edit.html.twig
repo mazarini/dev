@@ -1,5 +1,16 @@
-{% extends '@MazariniCrud/_form.html.twig' %}
+{% extends 'layout.html.twig' %}
+
+{% block head_title %}
+    {{ data.entity.name }}
+{% endblock head_title %}
 
 {% block title %}
-	Modifier "{{ data.entity.name }}"
+    Modification
+    {{ data.entity.name }}
 {% endblock %}
+
+{% block content %}
+
+    {% embed '@MazariniBootstrap/crud/_form.html.twig' with {'data': data } %}{% endembed %}
+
+{% endblock content %}

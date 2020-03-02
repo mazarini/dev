@@ -1,12 +1,66 @@
-{% extends '@MazariniPagination/_view.html.twig' %}
+{% extends 'layout.html.twig' %}
+
+{% block head_title %}
+    {{ data.entity.name }}
+{% endblock head_title %}
 
 {% block title %}
-	Fournisseur
+    Fiche
+    {{ data.entity.name }}
 {% endblock title %}
 
-{% block view_content %}
-	<tr>
-		<th>Nom :</th>
-		<td>{{ data.entity.name }}</td>
-	</tr>
-{% endblock view_content %}
+{% block content %}
+
+    {% embed '@MazariniBootstrap/crud/_view.html.twig' with {'data': data } %}
+
+        {% block content %}
+            <tr>
+                <th>Nom :</th>
+                <td>{{ data.entity.name }}</td>
+            </tr>
+        {% endblock content %}
+
+    {% endembed %}
+
+{% endblock content %}
+
+{% block modal %}
+
+    {% embed '@MazariniBootstrap/crud/_delete_form.html.twig' with {'data': data, 'modal_id': 'modalDeleteId'} %}
+
+        {% block content_confirm %}
+            <p>
+                Etes vous sur de supprimer le fournisseur
+                {{ data.entity.name }}
+                ?
+            </p>
+            {% if data.entity.deliveries.count == 0 %}
+                <p>
+                    Ce fournisseur n'a pas encore fait de livraison.
+                </p>
+            {% endif %}
+            {% if data.entity.deliveries.count == 1 %}
+                <p>
+                    Attention, ce fournisseur a fait
+                    <a href="{{ path('delivery_index', {'id': data.entity.id}) }}">
+                        {{ data.entity.deliveries.count }}
+                        livraison
+                    </a>
+                    qui va être supprimée.
+                </p>
+            {% endif %}
+            {% if data.entity.deliveries.count > 1 %}
+                <p>
+                    Attention, ce fournisseur a fait
+                    <a href="{{ path('delivery_index', {'id': data.entity.id}) }}">
+                        {{ data.entity.deliveries.count }}
+                        livraisons
+                    </a>
+                    qui vont être supprimées.
+                </p>
+            {% endif %}
+        {% endblock content_confirm %}
+
+    {% endembed %}
+
+{% endblock modal %}

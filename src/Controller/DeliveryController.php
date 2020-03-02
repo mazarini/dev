@@ -23,7 +23,7 @@ use App\Entity\Delivery;
 use App\Entity\Supplier;
 use App\Form\DeliveryType;
 use App\Repository\DeliveryRepository;
-use Mazarini\CrudBundle\Controller\AbstractCrudController;
+use Mazarini\CrudBundle\Controller\CrudControllerAbstract;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +33,7 @@ use Symfony\Component\Routing\Annotation\Route;
   * @Route("/delivery")
   * @IsGranted("ROLE_USER")
   */
- class DeliveryController extends AbstractCrudController
+ class DeliveryController extends CrudControllerAbstract
  {
      /**
       * @var Supplier

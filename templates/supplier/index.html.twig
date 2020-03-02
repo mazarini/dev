@@ -1,33 +1,37 @@
 {% extends 'layout.html.twig' %}
 
+{% block head_title %}
+    Fournisseurs
+{% endblock head_title %}
+
 {% block title %}
-	Liste des fournisseurs
-{% endblock %}
+    Liste des fournisseurs
+{% endblock title %}
 
 {% block content %}
 
-	{% embed '@MazariniPagination/_list.html.twig' with {'span': 1} %}
+    {% embed '@MazariniBootstrap/crud/_index.html.twig' with {'span': 1} %}
 
-		{% block page_header %}
-			<th>Noms</th>
-			<th>Actions</th>
-		{% endblock page_header %}
+        {% block page_header %}
+            <th>Noms</th>
+            <th>Actions</th>
+        {% endblock page_header %}
 
-		{% block page_row_container %}
-			<tr>
-				<td>{{ entity.name }}</td>
-				{% if data.links['show-' ~ entity.id].url != '#' %}
-					<td>
-						{% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': data.links['show-' ~ entity.id]} %}
-						{% if data.links['edit-' ~ entity.id].url != '#' %}
-							{% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': data.links['edit-' ~ entity.id]} %}
-						{% endif %}
-						{% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': data.links['delivery_index-' ~ entity.id]} %}
-					</td>
-				{% endif %}
-			</tr>
-		{% endblock page_row_container %}
+        {% block page_row_container %}
+            <tr>
+                <td>{{ entity.name }}</td>
+                {% if data.links['show-' ~ entity.id].url != '#' %}
+                    <td>
+                        {% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': data.links['show-' ~ entity.id]} %}
+                        {% if data.links['edit-' ~ entity.id].url != '#' %}
+                            {% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': data.links['edit-' ~ entity.id]} %}
+                        {% endif %}
+                        {% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': data.links['delivery_index-' ~ entity.id]} %}
+                    </td>
+                {% endif %}
+            </tr>
+        {% endblock page_row_container %}
 
-	{% endembed %}
+    {% endembed %}
 
 {% endblock content %}
