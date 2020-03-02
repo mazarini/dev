@@ -21,14 +21,14 @@ namespace App\Repository;
 
 use App\Entity\Supplier;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Mazarini\PaginationBundle\Repository\AbstractRepository;
+use Mazarini\PaginationBundle\Repository\EntityRepositoryAbstract;
 
 /**
  * @method Supplier|null find($id, $lockMode = null, $lockVersion = null)
  * @method Supplier|null findOneBy(array $criteria, array $orderBy = null)
  * @method Supplier[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SupplierRepository extends AbstractRepository
+class SupplierRepository extends EntityRepositoryAbstract
 {
     /**
      * @var string

@@ -23,14 +23,14 @@ use App\Entity\Delivery;
 use App\Entity\Supplier;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
-use Mazarini\PaginationBundle\Repository\AbstractRepository;
+use Mazarini\PaginationBundle\Repository\EntityRepositoryAbstract;
 
 /**
  * @method Delivery|null find($id, $lockMode = null, $lockVersion = null)
  * @method Delivery|null findOneBy(array $criteria, array $orderBy = null)
  * @method Delivery[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DeliveryRepository extends AbstractRepository
+class DeliveryRepository extends EntityRepositoryAbstract
 {
     /**
      * @var string
