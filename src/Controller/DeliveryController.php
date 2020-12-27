@@ -45,7 +45,7 @@ use Symfony\Component\Routing\Annotation\Route;
       */
      public function indexBis(): Response
      {
-         return $this->redirect($this->data->generateUrl('supplier_page', ['page' => 1]));
+         return $this->redirect($this->generateUrl('supplier_page', ['page' => 1]));
      }
 
      /**
@@ -53,7 +53,10 @@ use Symfony\Component\Routing\Annotation\Route;
       */
      public function index(Supplier $supplier): Response
      {
-         return $this->redirect($this->data->generateUrl('_page', ['id' => $supplier->getId(), 'page' => 1]));
+         $this->setParentEntity($supplier);
+         $url = $this->linkGenerator->getPageLink(1)->getUrl();
+
+         return $this->redirect($url, Response::HTTP_MOVED_PERMANENTLY);
      }
 
      /**

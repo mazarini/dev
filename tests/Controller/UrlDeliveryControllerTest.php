@@ -74,11 +74,7 @@ class UrlDeliveryControllerTest extends WebTestCase
     private function logIn(): void
     {
         $container = $this->client->getContainer();
-        if (null === $container) {
-            $session = null;
-        } else {
-            $session = $container->get('session');
-        }
+        $session = $container->get('session');
 
         $firewallName = 'main';
         // if you don't define multiple connected firewalls, the context defaults to the firewall name

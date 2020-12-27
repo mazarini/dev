@@ -17,21 +17,18 @@
  * You should have received a copy of the GNU General Public License
  */
 
-namespace App\Repository;
+namespace App\DataFixtures;
 
-use App\Entity\Ten;
-use Doctrine\Persistence\ManagerRegistry;
-use Mazarini\PaginationBundle\Repository\EntityRepositoryAbstract;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 
-/**
- * @method Ten|null find($id, $lockMode = null, $lockVersion = null)
- * @method Ten|null findOneBy(array $criteria, array $orderBy = null)
- * @method Ten[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class TenRepository extends EntityRepositoryAbstract
+class AppFixtures extends Fixture
 {
-    public function __construct(ManagerRegistry $registry)
+    public function load(ObjectManager $manager): void
     {
-        parent::__construct($registry, Ten::class);
+        // $product = new Product();
+        // $manager->persist($product);
+
+        $manager->flush();
     }
 }

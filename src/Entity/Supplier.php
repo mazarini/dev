@@ -24,11 +24,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mazarini\ToolsBundle\Entity\EntityInterface;
 use Mazarini\ToolsBundle\Entity\EntityTrait;
+use Mazarini\ToolsBundle\Entity\ParentEntityInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SupplierRepository")
  */
-class Supplier implements EntityInterface
+class Supplier implements EntityInterface, ParentEntityInterface
 {
     use EntityTrait;
 
@@ -61,6 +62,11 @@ class Supplier implements EntityInterface
         $this->name = $name;
 
         return $this;
+    }
+
+    public function hasChilds(): bool
+    {
+        return 0 === $this->deliveries->count();
     }
 
     /**

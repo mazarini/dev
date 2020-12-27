@@ -21,8 +21,8 @@ namespace App\Repository;
 
 use App\Entity\Delivery;
 use App\Entity\Supplier;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use Mazarini\PaginationBundle\Repository\EntityRepositoryAbstract;
 
 /**

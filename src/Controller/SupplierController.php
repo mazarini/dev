@@ -81,10 +81,13 @@ class SupplierController extends CrudControllerAbstract
      */
     public function delete(Request $request, Supplier $entity): Response
     {
+        $this->setEntity($entity);
         if (!$this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
             $this->addFlash('warning', 'Fournisseurs non supprimé (token invalide)');
 
-            return $this->redirect($this->data->generateUrl('_show', ['id' => $entity->getId()]));
+            $url = $this->linkGenerator->getEntityLink('', '_show', $entity)->getUrl();
+
+            return $this->redirect($url);
         }
         $count = \count($entity->getDeliveries());
         $entityManager = $this->getDoctrine()->getManager();
@@ -100,7 +103,9 @@ class SupplierController extends CrudControllerAbstract
             $this->addFlash('success', 'Fournisseur supprimé');
         }
 
-        return $this->redirect($this->data->generateUrl('_index'));
+        $url = $this->linkGenerator->getIndexLink()->getUrl();
+
+        return $this->redirect($url);
     }
 
     /**
