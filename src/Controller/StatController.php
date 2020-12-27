@@ -96,7 +96,7 @@ class StatController extends AbstractController
             $amounts['Cumul fournisseurs']['Total'] += $delivery->getAmount();
         }
 
-        return[$dates, $amounts];
+        return [$dates, $amounts];
     }
 
     protected function initUrl(Data $data): AbstractController

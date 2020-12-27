@@ -1,0 +1,45 @@
+{# templates/step/01-Card.html.twig #}
+
+{% extends 'layout.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.card {
+			margin-top: 1rem;
+		}
+	</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+	{% embed '@MazariniBootstrap/card/base.html.twig' %}
+		{% block title %}
+			title + body + footer
+		{% endblock title %}
+		{% block content %}
+			<p>Ipsum...</p>
+		{% endblock %}
+		{% block footer %}
+			<p>Ipsum...</p>
+		{% endblock %}
+	{% endembed %}
+
+	{% embed '@MazariniBootstrap/card/base.html.twig' %}
+		{% block title %}
+			title + body
+		{% endblock title %}
+		{% block content %}
+			<p>Ipsum...</p>
+		{% endblock %}
+		{% block footer_container %}{% endblock footer_container %}
+	{% endembed %}
+
+	{% embed '@MazariniBootstrap/card/base.html.twig' %}
+		{% block header_container %}{% endblock header_container %}
+		{% block content %}
+			<p>Only body...</p>
+		{% endblock %}
+		{% block footer_container %}{% endblock footer_container %}
+	{% endembed %}
+{% endblock content %}

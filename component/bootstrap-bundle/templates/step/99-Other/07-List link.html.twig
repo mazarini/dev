@@ -1,0 +1,9 @@
+{# templates/step/01-Table.html.twig #}
+
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	{% include '@MazariniBootstrap/list/v.html.twig' with {'list': linksSample()} only %}
+	<br/>
+	{% include '@MazariniBootstrap/list/h.html.twig' with {'list': linksSample()} only %}
+{% endblock content %}

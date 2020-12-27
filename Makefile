@@ -1,9 +1,11 @@
 
 init :
 	composer self-update
+	symfony self-update
 	composer global update
 	composer update
 	yarn install
+	yarn run encore dev
 
 asset:
 	yarn run encore dev
@@ -27,7 +29,7 @@ yaml:
 	bin/console lint:yaml config lib/Resources/config phpstan.neon.dist .travis.yml
 
 cs:
-	php-cs-fixer fix
+	~/.config/composer/vendor/bin/php-cs-fixer fix
 
 stan:
 	if [ ! -d "var/cache/phpunit" ]; then vendor/bin/simple-phpunit install -v; fi

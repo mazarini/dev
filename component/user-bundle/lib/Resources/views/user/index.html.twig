@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	Utilisateurs
+{% endblock title %}
+
+{% block head_title %}
+	Utilisateurs
+{% endblock head_title %}
+
+{% block content %}
+
+	{% embed '@MazariniBootstrap/crud/_index.html.twig' with {'span': 3} %}
+
+		{% block page_header %}
+			<th>Username</th>
+			<th>Email</th>
+			<th>Roles</th>
+			<th>actions</th>
+		{% endblock page_header %}
+
+		{% block page_row %}
+			<td>{{ entity.username }}</td>
+			<td>{{ entity.email }}</td>
+			<td>{{ entity.roles ? entity.roles|json_encode : '' }}</td>
+		{% endblock page_row %}
+
+	{% endembed %}
+
+{% endblock content %}

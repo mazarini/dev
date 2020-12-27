@@ -1,0 +1,29 @@
+{# templates/step/04-pagination.html.twig #}
+
+{% extends 'layout.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.table ul {
+			margin-bottom: 0;
+		}
+	</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Current page</th>
+				<th>Lines</th>
+				<th>Paginator</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% block content_data %}{% endblock content_data %}
+		</tbody>
+	</table>
+
+{% endblock content %}

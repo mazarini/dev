@@ -1,0 +1,67 @@
+{# templates/step/01-Table.html.twig #}
+
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+	<h2>3 rows</h2>
+	{% embed '@MazariniBootstrap/table/base.html.twig' with {'items': entitiesFactory(3)} only %}
+
+		{% block header %}
+			<th>Col A</th>
+			<th>Col B</th>
+			<th>Col C</th>
+			<th>Col D</th>
+		{% endblock header %}
+
+		{% block row %}
+			<td>{{ item.COL1 }}</td>
+			<td>{{ item.COL2 }}</td>
+			<td>{{ item.COL3 }}</td>
+			<td>{{ item.COL4 }}</td>
+		{% endblock row %}
+
+		{% block empty %}
+			<td colspan="4">No row</td>
+		{% endblock empty %}
+
+		{% block footer %}
+			<th>Col A</th>
+			<th>Col B</th>
+			<th>Col C</th>
+			<th>Col D</th>
+		{% endblock footer %}
+
+	{% endembed %}
+
+	<h2>No row</h2>
+	{% embed '@MazariniBootstrap/table/base.html.twig' with {'items': entitiesFactory(0)} only %}
+
+		{% block header %}
+			<th>Col A</th>
+			<th>Col B</th>
+			<th>Col C</th>
+			<th>Col D</th>
+		{% endblock header %}
+
+		{% block row %}
+			<td>{{ item.COL1 }}</td>
+			<td>{{ item.COL2 }}</td>
+			<td>{{ item.COL3 }}</td>
+			<td>{{ item.COL4 }}</td>
+		{% endblock row %}
+
+		{% block empty %}
+			<td colspan="4">No row</td>
+		{% endblock empty %}
+
+		{% block footer %}
+			<th>Col A</th>
+			<th>Col B</th>
+			<th>Col C</th>
+			<th>Col D</th>
+		{% endblock footer %}
+
+	{% endembed %}
+
+{% endblock content %}

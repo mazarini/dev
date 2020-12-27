@@ -1,0 +1,53 @@
+{# templates/step/01-Table.html.twig #}
+
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+	{% embed '@MazariniBootstrap/table/base.html.twig' %}
+
+		{% block header %}
+			<th></th>
+			<th>Normal</th>
+			<th>Active</th>
+			<th>Disable</th>
+		{% endblock header %}
+
+		{% block body %}
+			<tr>
+				<th>Submit</th>
+				<td>{% include '@MazariniBootstrap/button/submit.html.twig' with { 'link': linkStandard() } only %}</td>
+				<td>{% include '@MazariniBootstrap/button/submit.html.twig' with { 'link': linkActive() } only %}</td>
+				<td>{% include '@MazariniBootstrap/button/submit.html.twig' with { 'link': linkDisable() } only %}</td>
+			</tr>
+			<tr>
+				<th>Validate</th>
+				<td>{% include '@MazariniBootstrap/button/validate.html.twig' with {} only %}</td>
+				<td>{% include '@MazariniBootstrap/button/validate.html.twig' with { 'label': 'Active', 'class': ' active'} only %}</td>
+				<td>{% include '@MazariniBootstrap/button/validate.html.twig' with { 'label': 'Disable', 'class': ' disabled'} only %}</td>
+			</tr>
+			<tr>
+				<th>Toggle</th>
+				<td>{% include '@MazariniBootstrap/button/toggle.html.twig' with { 'label': 'Normal', 'target': 'example' } only %}</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<th>Link</th>
+				<td>{% include '@MazariniBootstrap/button/link.html.twig' with { 'link': linkStandard() } only %}</td>
+				<td>{% include '@MazariniBootstrap/button/link.html.twig' with { 'link': linkActive() } only %}</td>
+				<td>{% include '@MazariniBootstrap/button/link.html.twig' with { 'link': linkDisable() } only %}</td>
+			</tr>
+			<tr>
+				<th>Small link</th>
+				<td>{% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': linkStandard() } only %}</td>
+				<td>{% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': linkActive() } only %}</td>
+				<td>{% include '@MazariniBootstrap/button/link-sm.html.twig' with { 'link': linkDisable() } only %}</td>
+			</tr>
+		{% endblock body %}
+
+		{% block footer %}{% endblock footer %}
+
+	{% endembed %}
+
+{% endblock content %}

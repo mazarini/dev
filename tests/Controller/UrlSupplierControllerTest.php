@@ -32,7 +32,7 @@ class UrlSupplierControllerTest extends WebTestCase
      */
     protected $client;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->client = static::createClient();
         $this->logIn();

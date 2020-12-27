@@ -1,0 +1,49 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+	{% embed '@MazariniBootstrap/crud/_view.html.twig' with {'data': dataCrud('show') } %}
+
+		{% block content %}
+			<tr>
+				<th>Id</th>
+				<td>{{ data.entity.id }}</td>
+			</tr>
+			<tr>
+				<th>Col1</th>
+				<td>{{ data.entity.col1 }}</td>
+			</tr>
+			<tr>
+				<th>Col2</th>
+				<td>{{ data.entity.col2 }}</td>
+			</tr>
+		{% endblock content %}
+
+	{% endembed %}
+
+{% endblock content %}
+
+{% block modal %}
+
+	{% embed '@MazariniBootstrap/crud/_delete_form.html.twig' with {'data': dataCrud('show'), 'modal_id': 'modalDeleteId'} %}
+
+		{% block content_not_allow %}
+			{{ parent() }}
+		{% endblock content_not_allow %}
+		{% block close %}
+			{{ parent() }}
+		{% endblock close %}
+
+		{% block content_confirm %}
+			{{ parent() }}
+		{% endblock content_confirm %}
+		{% block validate %}
+			{{ parent() }}
+		{% endblock validate %}
+		{% block cancel %}
+			{{ parent() }}
+		{% endblock cancel %}
+
+	{% endembed %}
+
+{% endblock modal %}

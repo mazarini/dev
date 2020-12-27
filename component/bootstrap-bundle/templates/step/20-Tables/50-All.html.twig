@@ -1,0 +1,32 @@
+{# templates/step/01-Table.html.twig #}
+
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+	{% embed '@MazariniBootstrap/table/base.html.twig' with {'items': entitiesFactory(3), 'class': 'table table-striped table-bordered table-hover'} only %}
+
+		{% block header %}
+			<th>Col A</th>
+			<th>Col B</th>
+			<th>Col C</th>
+			<th>Col D</th>
+		{% endblock header %}
+
+		{% block row %}
+			<td>{{ item.COL1 }}</td>
+			<td>{{ item.COL2 }}</td>
+			<td>{{ item.COL3 }}</td>
+			<td>{{ item.COL4 }}</td>
+		{% endblock row %}
+
+		{% block footer %}
+			<th>Col A</th>
+			<th>Col B</th>
+			<th>Col C</th>
+			<th>Col D</th>
+		{% endblock footer %}
+	{% endembed %}
+
+
+{% endblock content %}

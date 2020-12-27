@@ -1,0 +1,68 @@
+{# templates/step/02-Modal.html.twig #}
+
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	<div class="btn-group" role="group" aria-label="Basic example">
+		{% include '@MazariniBootstrap/button/toggle.html.twig' with {'target': 'modalId', 'label': 'Toggle modal top'} %}
+		{% include '@MazariniBootstrap/button/toggle.html.twig' with {'target': 'centeredId', 'label': 'Toggle modal centered'} %}
+		{% include '@MazariniBootstrap/button/toggle.html.twig' with {'target': 'scrollableId', 'label': 'Toggle modal scrollable'} %}
+	</div>
+{% endblock content %}
+
+{% block modal %}
+
+	{% embed '@MazariniBootstrap/modal/top.html.twig' %}
+		{% block title %}
+			title + body + footer
+		{% endblock title %}
+		{% block content %}
+			<p>Ipsum...</p>
+		{% endblock %}
+		{% block footer %}
+			<p>Ipsum...</p>
+		{% endblock %}
+	{% endembed %}
+
+	{% embed '@MazariniBootstrap/modal/centered.html.twig' with {'modal_id': 'centeredId'} %}
+		{% block title %}
+			title + body + footer
+		{% endblock title %}
+		{% block content %}
+			<p>Ipsum...</p>
+		{% endblock %}
+		{% block footer %}
+			<p>Ipsum...</p>
+		{% endblock %}
+	{% endembed %}
+
+	{% embed '@MazariniBootstrap/modal/centered.html.twig' with {'modal_id': 'scrollableId'} %}
+		{% block title %}
+			title + body + footer
+		{% endblock title %}
+		{% block content %}
+			<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+			<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+			<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+			<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+			<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+			<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+			<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+			<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+			<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+			<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+			<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+			<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+			<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+			<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+			<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+			<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+			<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+			<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+		{% endblock %}
+		{% block footer %}
+			<p>Ipsum...</p>
+		{% endblock %}
+	{% endembed %}
+
+{% endblock modal %}

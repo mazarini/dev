@@ -1,0 +1,20 @@
+{# templates/step/04-pagination.html.twig #}
+
+{% extends 'step/layout-pagination.html.twig' %}
+
+{% block content_data %}
+    {% embed 'step/row-pagination.html.twig' with { 'data': dataPagination(1, 0, 0, 10), 'linkExtension': linkExtension } only %}
+        {% block content_pagination %}
+            {{ dump(linkExtension) }}
+            {% include '@MazariniBootstrap/pagination/num.html.twig' %}
+        {% endblock content_pagination %}
+    {% endembed %}
+    {% for i in 1..10 %}
+        {% embed 'step/row-pagination.html.twig' with { 'data': dataPagination(i, 10, i * 10, 10), 'linkExtension': linkExtension } only %}
+            {% block content_pagination %}
+                {{ dump(linkExtension) }}
+                {% include '@MazariniBootstrap/pagination/num.html.twig' %}
+            {% endblock content_pagination %}
+        {% endembed %}
+    {% endfor %}
+{% endblock content_data %}
