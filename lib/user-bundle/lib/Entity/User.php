@@ -35,12 +35,12 @@ class User extends Entity implements UserInterface, PasswordAuthenticatedUserInt
     protected array $roles = [];
 
     /**
-     * $name.
+     * $username.
      *
      * @var string
      */
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    protected string $name = '';
+    protected string $username = '';
 
     /**
      * $password.
@@ -124,5 +124,23 @@ class User extends Entity implements UserInterface, PasswordAuthenticatedUserInt
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * Get the value of username.
+     */
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set the value of username.
+     */
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 }

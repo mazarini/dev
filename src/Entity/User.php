@@ -19,10 +19,19 @@ use Mazarini\UserBundle\Entity\User as UserBase;
 #[ORM\Table(name: '`user`')]
 class User extends UserBase
 {
-    /*
-    [ORM\Id]
-    [ORM\GeneratedValue]
-    [ORM\Column(type: 'integer')]
-    protected int $id = 0;
-    */
+    #[ORM\Column(type: 'string', length: 100)]
+
+    private string $publicName = '';
+
+    public function getPublicName(): string
+    {
+        return $this->publicName;
+    }
+
+    public function setPublicName(string $publicName): self
+    {
+        $this->publicName = $publicName;
+
+        return $this;
+    }
 }

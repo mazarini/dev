@@ -21,6 +21,6 @@ class IndexTest extends WebTestCase
         $crawler = $client->request('GET', '/');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Hello IndexController! ✅');
+        $this->assertSelectorTextContains('h1', 'Home');
     }
 }
