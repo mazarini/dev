@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block head_title %}
+    Design
+{% endblock %}
+{% block title %}
+    Design
+{% endblock %}
+
+{% block content %}
+    {% include 'part/folder.html.twig'  with {'items': menu} %}
+    {{ dump(menu) }}
+{% endblock %}

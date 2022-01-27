@@ -1,0 +1,12 @@
+{{ items.content.label }}
+<ul>
+    {% for item in items %}
+        <li>
+            {% if attribute(item.content, 'getTemplate') is defined %}
+                {% include 'part/template.html.twig' with {'items': item} %}
+            {% else %}
+                {% include 'part/folder.html.twig'  with {'items': item} %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
