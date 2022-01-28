@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the mazarini/dev project.
+ *
+ * (c) Mazarini <mazarini@protonmail.com.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 return [
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
@@ -13,4 +22,5 @@ return [
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
+    Mazarini\ToolsBundle\MazariniToolsBundle::class => ['dev' => true, 'test' => true],
 ];
