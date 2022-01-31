@@ -1,0 +1,25 @@
+{# lib/Resources/views/layout.html.twig #}
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    Design
+{% endblock %}
+
+{% block modal %}
+    {{ parent() }}
+    {% block design_modal %}{% endblock %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% block design_stylesheets %}
+        {% include '@MazariniDesign/tool/style.html.twig' %}
+    {% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% block design_javascripts %}
+        {% include '@MazariniDesign/tool/javascripts.html.twig' %}
+    {% endblock %}
+{% endblock %}

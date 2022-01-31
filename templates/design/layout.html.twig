@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block static %}
+    {{ parent() }}
+    <!-- Modal -->
+    <div class="modal fade" id="design_menu" tabindex="-1" aria-labelledby="design_menu_label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="design_menu_label">Design menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li>
+                            {% include 'part/folder.html.twig'  with {'items': design_menu} %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Button trigger design_menu -->
+    <button id="design_menu_button" type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#design_menu">
+        View menu
+    </button>
+{% endblock %}
+{% block script %}
+    {{ parent()}}
+
+    <script>
+        window.addEventListener('load', function () {
+            $(document).keydown(function (evt) {
+                if (evt.keyCode == 27) {
+                    $('#design_menu_button').click();
+                }
+            });
+        });
+    </script>
+{% endblock %}

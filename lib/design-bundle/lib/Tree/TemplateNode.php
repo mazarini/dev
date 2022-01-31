@@ -31,7 +31,7 @@ class TemplateNode extends BaseNode
             $dirs = scandir($root.\DIRECTORY_SEPARATOR.$path);
             if (false !== $dirs) {
                 foreach ($dirs as $dir) {
-                    if ('.' !== $dir && '..' !== $dir) {
+                    if ('.' !== $dir && '..' !== $dir && 'layout.html.twig' !== $dir) {
                         $this->addChild(new self($root, $path.\DIRECTORY_SEPARATOR.$dir));
                     }
                 }
