@@ -25,9 +25,8 @@
         View menu
     </button>
 {% endblock %}
-{% block script %}
+{% block javascript %}
     {{ parent()}}
-
     <script>
         window.addEventListener('load', function () {
             $(document).keydown(function (evt) {

@@ -10,40 +10,28 @@
         <link
         rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-        {% block style %}{% endblock %}
+        {{ encore_entry_link_tags('app') }}
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <style>
-            .example-wrapper {
-                margin: 1em auto;
-                max-width: 800px;
-                width: 95%;
-                font: 18px / 1.5 sans-serif;
-            }
-            .example-wrapper code {
-                background: #F5F5F5;
-                padding: 2px 6px;
-            }
-        </style>
-        <div class="container">
-            {% block body %}
-                <div class="row">
-                    <div class="col-3">
-                        {% block side %}
-                            <ul>
-                                <li><a href="/">Home</a></li>
-                                <li><a href="/theme">Theme</a></li>
-                                <li><a href="/admin">Admin</a></li>
-                                <li><a href="/login">Login</a></li>
-                                <li><a href="/logout">Logout</a></li>
-                            </ul>
-                        {% endblock %}
+        {% block body %}
+            <section
+                id="container">
+                <!--header start-->
+                <header class="header black-bg">
+                    {% block header %}{% endblock %}
+                </header>
+                <!--header end-->
+                <!--sidebar start-->
+                <aside>
+                    <div id="sidebar" class="nav-collapse ">
+                        {% block sidebar %}{% endblock %}
                     </div>
-                    <div class="col-9">
+                </aside>
+                <!--sidebar end-->
+                <!--main content start-->
+                <section id="main-content">
+                    <div class="wrapper site-min-height">
                         {% block main %}
                             <h1>
                                 {% block title %}{% endblock %}
@@ -51,11 +39,22 @@
                             {% block content %}{% endblock %}
                         {% endblock %}
                     </div>
-                </div>
-            {% endblock %}
-        </div>
+                </section>
+                <!--main content end-->
+                <!--footer start-->
+                <footer class="site-footer">
+                    <div class="text-center">
+                        {% block footer %}{% endblock %}
+                    </div>
+                </footer>
+                <!--footer end-->
+            </section>
+        {% endblock %}
+        <!--script for this page-->
+        {{ encore_entry_script_tags('app') }}
+        {% block javascript %}{% endblock %}
+        <!-- modal start -->
         {% block static %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-        {% block script %}{% endblock %}
+        <!-- modal start -->
     </body>
 </html>

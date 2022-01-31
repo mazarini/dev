@@ -1,0 +1,18 @@
+{% extends 'design/layout.html.twig' %}
+
+{% block head_title %}
+    Container
+{% endblock %}
+
+{% block title %}
+    Container
+{% endblock %}
+
+{% block javascript %}
+    {{ parent()}}
+    <script>
+        window.addEventListener('load', function () {
+            $('#container').empty();
+        });
+    </script>
+{% endblock %}
