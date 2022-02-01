@@ -19,32 +19,35 @@
                 id="container">
                 <!--header start-->
                 <header class="header black-bg">
-                    {% block header %}{% endblock %}
+                    {% block header %}
+                        {% include 'header.html.twig' %}
+                    {% endblock %}
                 </header>
                 <!--header end-->
                 <!--sidebar start-->
                 <aside>
                     <div id="sidebar" class="nav-collapse ">
-                        {% block sidebar %}{% endblock %}
+                        {% block sidebar %}
+                            {% include 'sidebar.html.twig' %}
+                        {% endblock %}
                     </div>
                 </aside>
                 <!--sidebar end-->
                 <!--main content start-->
                 <section id="main-content">
-                    <div class="wrapper site-min-height">
+                    <section class="wrapper site-min-height">
                         {% block main %}
-                            <h1>
-                                {% block title %}{% endblock %}
-                            </h1>
-                            {% block content %}{% endblock %}
+                            {% include 'content.html.twig' %}
                         {% endblock %}
-                    </div>
+                    </section>
                 </section>
                 <!--main content end-->
                 <!--footer start-->
                 <footer class="site-footer">
                     <div class="text-center">
-                        {% block footer %}{% endblock %}
+                        {% block footer %}
+                            {% include 'footer.html.twig' %}
+                        {% endblock %}
                     </div>
                 </footer>
                 <!--footer end-->
