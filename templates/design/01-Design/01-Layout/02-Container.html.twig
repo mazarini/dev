@@ -12,7 +12,7 @@
     {{ parent()}}
     <script>
         window.addEventListener('load', function () {
-            $('#container').empty();
+            document.getElementById('page-container').innerHTML = "container";
         });
     </script>
 {% endblock %}

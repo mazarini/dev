@@ -3,11 +3,11 @@
 {% block static %}
     {{ parent() }}
     <!-- Modal -->
-    <div class="modal fade" id="design_menu" tabindex="-1" aria-labelledby="design_menu_label" aria-hidden="true">
+    <div id="design_menu" class="modal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="design_menu_label">Design menu</h5>
+                    <h5 class="modal-title">Modal title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -29,9 +29,9 @@
     {{ parent()}}
     <script>
         window.addEventListener('load', function () {
-            $(document).keydown(function (evt) {
+            window.addEventListener('keydown', function (evt) {
                 if (evt.keyCode == 27) {
-                    $('#design_menu_button').click();
+                    document.getElementById('design_menu_button').click();
                 }
             });
         });

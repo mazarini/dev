@@ -15,49 +15,37 @@
     </head>
     <body>
         {% block body %}
-            <section
-                id="container">
-                <!--header start-->
-                <header class="header black-bg">
-                    {% block header %}
-                        {% include 'header.html.twig' %}
-                    {% endblock %}
-                </header>
-                <!--header end-->
-                <!--sidebar start-->
-                <aside>
-                    <div id="sidebar" class="nav-collapse ">
-                        {% block sidebar %}
-                            {% include 'sidebar.html.twig' %}
-                        {% endblock %}
-                    </div>
-                </aside>
-                <!--sidebar end-->
-                <!--main content start-->
-                <section id="main-content">
-                    <section class="wrapper site-min-height">
+            <div id="page-container" class="wrapper">
+                <nav id="sidebar" class="sidebar js-sidebar">
+                    {% block sidebar %}
+                        {% include 'sidebar.html.twig' %}
+                    {% endblock sidebar %}
+                </nav>
+                <div class="main">
+                    <nav class="navbar navbar-expand navbar-light navbar-bg">
+                        {% block header %}
+                            {% include 'header.html.twig' %}
+                        {% endblock header %}
+                    </nav>
+                    <main class="content">
                         {% block main %}
-                            {% include 'content.html.twig' %}
-                        {% endblock %}
-                    </section>
-                </section>
-                <!--main content end-->
-                <!--footer start-->
-                <footer class="site-footer">
-                    <div class="text-center">
+                            {% include 'main.html.twig' %}
+                        {% endblock main %}
+                    </main>
+                    <footer class="footer">
                         {% block footer %}
                             {% include 'footer.html.twig' %}
-                        {% endblock %}
-                    </div>
-                </footer>
-                <!--footer end-->
-            </section>
+                        {% endblock footer %}
+                    </footer>
+                </div>
+            </div>
+
         {% endblock %}
         <!--script for this page-->
         {{ encore_entry_script_tags('app') }}
         {% block javascript %}{% endblock %}
         <!-- modal start -->
         {% block static %}{% endblock %}
-        <!-- modal start -->
+        <!-- modal end -->
     </body>
 </html>
