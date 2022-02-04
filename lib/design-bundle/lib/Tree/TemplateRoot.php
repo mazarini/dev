@@ -11,17 +11,16 @@
 
 namespace Mazarini\DesignBundle\Tree;
 
-use Mazarini\ToolsBundle\Tree\ContentNode as BaseNode;
-
 /**
  * TemplateNode.
  *
- * @method TemplateNode    getRoot()
- * @method TemplateNode    current()
- * @method Folder|Template getContent()
+ * @method TemplateNode getRoot()
+ * @method TemplateNode current()
  */
-class TemplateNode extends BaseNode
+class TemplateRoot extends TemplateNode
 {
+    private string $currentContentId;
+
     /**
      * __construct.
      */
@@ -42,21 +41,21 @@ class TemplateNode extends BaseNode
         }
     }
 
-    public function getClass(): string
+    /**
+     * Get the value of currentContentId.
+     */
+    public function getCurrentContentId()
     {
-        if ($this->isCurrent()) {
-            if ($this->isTemplate()) {
-                return ' text-success';
-            }
-
-            return ' show';
-        }
-
-        return '';
+        return $this->currentContentId;
     }
 
-    public function isTemplate(): bool
+    /**
+     * Set the value of currentContentId.
+     */
+    public function setCurrentContentId(string $currentContentId): self
     {
-        return method_exists($this->content, 'getTemplate');
+        $this->currentContentId = $currentContentId;
+
+        return $this;
     }
 }

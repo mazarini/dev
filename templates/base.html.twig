@@ -29,7 +29,14 @@
                     </nav>
                     <main class="content">
                         {% block main %}
-                            {% include 'main.html.twig' %}
+                            <div class="container-fluid p-0">
+                                <h1 class="h3 mb-3">
+                                    {% block title %}{% endblock %}
+                                </h1>
+                                <div class="row">
+                                    {% block content %}{% endblock %}
+                                </div>
+                            </div>
                         {% endblock main %}
                     </main>
                     <footer class="footer">

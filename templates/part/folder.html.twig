@@ -1,12 +1,19 @@
-{{ items.content.label }}
-<ul>
-    {% for item in items %}
-        <li>
-            {% if attribute(item.content, 'getTemplate') is defined %}
-                {% include 'part/template.html.twig' with {'items': item} %}
+<li>
+    <span class="{{ items.class }}" type="button" data-bs-toggle="collapse" data-bs-target="#{{ name }}" aria-expanded="false" aria-controls="{{ name }}">
+        {{ items.content.label }}
+        >
+    </span>
+    <ul class="collapse{{ items.class }}" id="{{ name }}">
+        {% for item in items %}
+            {% if item.isTemplate %}
+                <li>
+                    <a class="{{ item.class }}" href="{{ path("design", {"template":item.content.template}) }}">
+                        {{ item.content.label }}
+                    </a>
+                </li>
             {% else %}
-                {% include 'part/folder.html.twig'  with {'items': item} %}
+                {% include 'part/folder.html.twig'  with {'name':name ~ loop.index, 'items': item} %}
             {% endif %}
-        </li>
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
+</li>

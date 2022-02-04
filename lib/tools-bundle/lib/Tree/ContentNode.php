@@ -93,7 +93,7 @@ class ContentNode extends EmptyNode
     public function isCurrent($currentContentId = null): bool
     {
         if (null === $currentContentId) {
-            $currentContentId = $this->getCurrentcontentId();
+            $currentContentId = $this->getRoot()->getCurrentContentId();
         }
 
         if (null === $currentContentId) {

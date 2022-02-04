@@ -2,38 +2,5 @@
 
 {% block static %}
     {{ parent() }}
-    <!-- Modal -->
-    <div id="design_menu" class="modal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <ul>
-                        <li>
-                            {% include 'part/folder.html.twig'  with {'items': design_menu} %}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Button trigger design_menu -->
-    <button id="design_menu_button" type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#design_menu">
-        View menu
-    </button>
-{% endblock %}
-{% block javascript %}
-    {{ parent()}}
-    <script>
-        window.addEventListener('load', function () {
-            window.addEventListener('keydown', function (evt) {
-                if (evt.keyCode == 27) {
-                    document.getElementById('design_menu_button').click();
-                }
-            });
-        });
-    </script>
+    {% include 'part/modal.html.twig'  with {'items': design_menu} %}
 {% endblock %}

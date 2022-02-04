@@ -1,18 +1,30 @@
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<!-- Modal start-->
+<div id="design_menu" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title">Choose a step...</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="modal-body mx-auto">
+                <ul>
+                    {% include 'part/folder.html.twig' with {'name':'design', 'items':design_menu} %}
+                </ul>
             </div>
         </div>
     </div>
 </div>
+<!--Button triggerdesign_menu-->
+<button id="design_menu_button" type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#design_menu">
+    View menu
+</button>
+<script>
+    window.addEventListener('load', function () {
+        window.addEventListener('keydown', function (evt) {
+            if (evt.keyCode == 27) {
+                document.getElementById('design_menu_button').click();
+            }
+        });
+    });
+</script>
+<!-- Modal end -->
