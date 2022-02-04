@@ -2,5 +2,5 @@
 
 {% block static %}
     {{ parent() }}
-    {% include 'part/modal.html.twig'  with {'items': design_menu} %}
+    {% include '@MazariniDesign/menu/modal.html.twig'  with {'items': design_menu} %}
 {% endblock %}

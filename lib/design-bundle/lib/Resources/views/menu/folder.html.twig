@@ -12,7 +12,7 @@
                     </a>
                 </li>
             {% else %}
-                {% include 'part/folder.html.twig'  with {'name':name ~ loop.index, 'items': item} %}
+                {% include '@MazariniDesign/menu/folder.html.twig'  with {'name':name ~ loop.index, 'items': item} %}
             {% endif %}
         {% endfor %}
     </ul>
