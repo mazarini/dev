@@ -1,19 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'design/layout.html.twig' %}
 
 {% block head_title %}
     Accordion
 {% endblock %}
+
 {% block title %}
     Accordion
-{% endblock %}
-
-{% block side %}
-    <ul>
-        <li>
-            {% include 'part/folder.html.twig'  with {'items': design_menu} %}
-        </li>
-    </ul>
-    {{ parent() }}
 {% endblock %}
 
 {% block content %}

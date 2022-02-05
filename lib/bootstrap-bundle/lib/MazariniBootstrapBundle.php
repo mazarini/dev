@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Mazarini\ToolsBundle;
+namespace Mazarini\BootstrapBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * @author Mazarini <mazarini@protonmail.com>
  */
-class MazariniToolsBundle extends Bundle
+class MazariniBootstrapBundle extends Bundle
 {
 }

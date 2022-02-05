@@ -1,0 +1,21 @@
+{% extends 'design/layout.html.twig' %}
+
+{% block head_title %}
+    Accordion
+{% endblock %}
+
+{% block title %}
+    Accordion
+{% endblock %}
+
+{% block content %}
+    {{ dump(fake_table(4,2)) }}
+    {% embed '@MazariniBootstrap/accordion/multi.html.twig' with {'name':'name', 'items':fake_title_text(4,150,250) } %}
+        {% block title %}
+            {{ item[0] }}
+        {% endblock %}
+        {% block content %}
+            {{ item[1] }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

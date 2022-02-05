@@ -16,8 +16,9 @@ return [
 
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
 
-    Mazarini\ToolsBundle\MazariniToolsBundle::class => ['all' => true],
+    Mazarini\BootstrapBundle\MazariniBootstrapBundle::class => ['all' => true],
     Mazarini\DesignBundle\MazariniDesignBundle::class => ['dev' => true, 'test' => true],
+    Mazarini\ToolsBundle\MazariniToolsBundle::class => ['all' => true],
 
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true],
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],

@@ -50,6 +50,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/",
+            "Mazarini\\BootstrapBundle\\": "lib/bootstrap-bundle/lib/",
             "Mazarini\\DesignBundle\\": "lib/design-bundle/lib/",
             "Mazarini\\ToolsBundle\\": "lib/tools-bundle/lib/",
             "Mazarini\\UserBundle\\": "lib/user-bundle/lib/"
